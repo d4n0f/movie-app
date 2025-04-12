@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1942BD142DAB0896000DD5FD /* Exceptions for "movie-app" folder in "movie-app" target */ = {
+		1942BD392DAB134B000DD5FD /* Exceptions for "movie-app" folder in "movie-app" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		1942BCF52DAB04EA000DD5FD /* movie-app */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				1942BD142DAB0896000DD5FD /* Exceptions for "movie-app" folder in "movie-app" target */,
+				1942BD392DAB134B000DD5FD /* Exceptions for "movie-app" folder in "movie-app" target */,
 			);
 			path = "movie-app";
 			sourceTree = "<group>";

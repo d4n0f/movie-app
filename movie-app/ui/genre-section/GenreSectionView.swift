@@ -13,17 +13,29 @@ class GenreSectionViewModel: ObservableObject {
     @Published var genres: [Genre] = []
     
     private var movieService: MoviesServiceProtocol = MoviesService()
+    private var tvService: TVSeriesServiceProtocol = TVSeriesService()
     
     func fetchGenres() async {
-        
-        do {
-            let request = FetchGenreRequest()
-            let genres = try await movieService.fetchGenres(req: request)
-            DispatchQueue.main.async {
-                self.genres = genres
+        if Environment.name == .dev || Environment.name == .prod {
+            do {
+                let request = FetchGenreRequest()
+                let genres = try await movieService.fetchGenres(req: request)
+                DispatchQueue.main.async {
+                    self.genres = genres
+                }
+            } catch {
+                print("Error fetching genres: \(error)")
             }
-        } catch {
-            print("Error fetching genres: \(error)")
+        } else {
+            do {
+                let request = FetchGenreRequest()
+                let genres = try await tvService.fetchGenres(req: request)
+                DispatchQueue.main.async {
+                    self.genres = genres
+                }
+            } catch {
+                print("Error fetching genres: \(error)")
+            }
         }
     }
 }

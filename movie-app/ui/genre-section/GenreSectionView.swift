@@ -61,7 +61,7 @@ struct GenreSectionView: View {
                     .listRowSeparator(.hidden)// lista separatorok eltüntetése
                 }
                 .listStyle(.plain)
-                .navigationTitle(Environment.name == .dev ? "DEV" : "PROD")
+                .navigationTitle(Environment.name == .dev ? "DEV" : (Environment.name == .prod ? "PROD" : (Environment.name == .seriesDev ? "TV SERIES DEV" : (Environment.name == .seriesProd ? "TV SERIES PROD" : "UNKNOWN"))))
             }
         }
         .onAppear() {

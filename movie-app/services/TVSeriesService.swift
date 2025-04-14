@@ -7,12 +7,8 @@
 
 import Foundation
 import Moya
-
-protocol TVSeriesServiceProtocol {
-    func fetchGenres(req: FetchGenreRequest) async throws -> [Genre]
-}
     
-class TVSeriesService: TVSeriesServiceProtocol {
+class TVSeriesService: GenreServiceProtocol {
     
     var moya: MoyaProvider<MultiTarget>!
     

@@ -7,35 +7,35 @@
 
 import SwiftUI
 
-import SwiftUI
-
 class GenreSectionViewModel: ObservableObject {
     @Published var genres: [Genre] = []
     
-    private var movieService: MoviesServiceProtocol = MoviesService()
-    private var tvService: TVSeriesServiceProtocol = TVSeriesService()
+    private var movieService: GenreServiceProtocol = MoviesService()
+    private var tvService: GenreServiceProtocol = TVSeriesService()
+    private var service: GenreServiceProtocol?
     
     func fetchGenres() async {
+        // megnézi, hogy melyik sémát használjuk és az alapján választja ki a filmeket/sorozatokat
         if Environment.name == .dev || Environment.name == .prod {
-            do {
-                let request = FetchGenreRequest()
-                let genres = try await movieService.fetchGenres(req: request)
-                DispatchQueue.main.async {
-                    self.genres = genres
-                }
-            } catch {
-                print("Error fetching genres: \(error)")
-            }
+            service = movieService
         } else {
-            do {
-                let request = FetchGenreRequest()
-                let genres = try await tvService.fetchGenres(req: request)
-                DispatchQueue.main.async {
-                    self.genres = genres
-                }
-            } catch {
-                print("Error fetching genres: \(error)")
+            service = tvService
+        }
+        
+        // mivel a service optional ezért le kell kezelni, hogy nehogy nil legyen benne
+        guard let service = service else {
+                print("Service is not available")
+                return
             }
+        
+        do {
+            let request = FetchGenreRequest()
+            let genres = try await service.fetchGenres(req: request)
+            DispatchQueue.main.async {
+                self.genres = genres
+            }
+        } catch {
+            print("Error fetching genres: \(error)")
         }
     }
 }
@@ -56,8 +56,6 @@ struct GenreSectionView: View {
                         NavigationLink(destination: Color.gray) {
                             EmptyView()
                         }
-                        
-                        
                         .opacity(0)
                         
                         HStack { // vízszintes Stack
@@ -67,7 +65,6 @@ struct GenreSectionView: View {
                             Spacer() // bal és jobb szélre igazítás
                             Image(.rightArrow) // jobb oldali nyíl
                         }
-                        
                     }
                     .listRowBackground(Color.clear) // lista sorainak hátterének kikapcsolása
                     .listRowSeparator(.hidden)// lista separatorok eltüntetése
@@ -81,7 +78,6 @@ struct GenreSectionView: View {
                 await viewModel.fetchGenres()
             }
         }
-        
     }
 }
 

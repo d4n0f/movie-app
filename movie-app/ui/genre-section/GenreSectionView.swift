@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 class GenreSectionViewModel: ObservableObject {
     @Published var genres: [Genre] = []
     
@@ -37,15 +35,13 @@ struct GenreSectionView: View {
         NavigationView {
             ZStack(alignment: .topTrailing) {
                 Image(.ellipse)
-                    .offset(x: 0, y: -153)
+                    .ignoresSafeArea(edges: .top)
                 
                 List(viewModel.genres) { genre in // listán végigiterálás
                     ZStack {
                         NavigationLink(destination: Color.gray) {
                             EmptyView()
                         }
-                        
-                        
                         .opacity(0)
                         
                         HStack { // vízszintes Stack
@@ -55,7 +51,6 @@ struct GenreSectionView: View {
                             Spacer() // bal és jobb szélre igazítás
                             Image(.rightArrow) // jobb oldali nyíl
                         }
-                        
                     }
                     .listRowBackground(Color.clear) // lista sorainak hátterének kikapcsolása
                     .listRowSeparator(.hidden)// lista separatorok eltüntetése
@@ -69,7 +64,6 @@ struct GenreSectionView: View {
                 await viewModel.fetchGenres()
             }
         }
-        
     }
 }
 

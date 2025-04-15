@@ -10,7 +10,7 @@ import SwiftUI
 class GenreSectionViewModel: ObservableObject {
     @Published var genres: [Genre] = []
     
-    private var movieService: GenreServiceProtocol = MoviesService()
+    private var movieService: MoviesServiceProtocol = MoviesService()
     
     func fetchGenres() async {
    
@@ -39,7 +39,7 @@ struct GenreSectionView: View {
                 
                 List(viewModel.genres) { genre in // listán végigiterálás
                     ZStack {
-                        NavigationLink(destination: Color.gray) {
+                        NavigationLink(destination: MovieListView(genre: genre)) {
                             EmptyView()
                         }
                         .opacity(0)

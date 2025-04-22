@@ -10,13 +10,27 @@ import SwiftUI
 class GenreSectionViewModel: ObservableObject {
     @Published var genres: [Genre] = []
     
-    private var movieService: MoviesServiceProtocol = MoviesService()
+    private var movieService: GenreServiceProtocol = MoviesService()
+    private var tvService: GenreServiceProtocol = TVSeriesService()
+    private var service: GenreServiceProtocol?
     
     func fetchGenres() async {
+        // megnézi, hogy melyik sémát használjuk és az alapján választja ki a filmeket/sorozatokat
+        if Environment.name == .dev || Environment.name == .prod {
+            service = movieService
+        } else {
+            service = tvService
+        }
+        
+        // mivel a service optional ezért le kell kezelni, hogy nehogy nil legyen benne
+        guard let service = service else {
+                print("Service is not available")
+                return
+            }
         
         do {
             let request = FetchGenreRequest()
-            let genres = try await movieService.fetchGenres(req: request)
+            let genres = try await service.fetchGenres(req: request)
             DispatchQueue.main.async {
                 self.genres = genres
             }
@@ -26,6 +40,7 @@ class GenreSectionViewModel: ObservableObject {
     }
 }
 
+
 struct GenreSectionView: View {
     
     @StateObject private var viewModel = GenreSectionViewModel()
@@ -34,7 +49,7 @@ struct GenreSectionView: View {
         NavigationView {
             ZStack(alignment: .topTrailing) {
                 Image(.ellipse)
-                    .ignoresSafeArea(edges: .top)
+                    .offset(x: 0, y: -153)
                 
                 List(viewModel.genres) { genre in // listán végigiterálás
                     ZStack {
@@ -55,7 +70,7 @@ struct GenreSectionView: View {
                     .listRowSeparator(.hidden)// lista separatorok eltüntetése
                 }
                 .listStyle(.plain)
-                .navigationTitle(Environment.name == .dev ? "DEV" : "PROD")
+                .navigationTitle(Environment.name == .dev ? "DEV" : (Environment.name == .prod ? "PROD" : "TV"))
             }
         }
         .onAppear() {
@@ -69,4 +84,3 @@ struct GenreSectionView: View {
 #Preview {
     GenreSectionView()
 }
-

@@ -10,6 +10,7 @@ import Moya
 
 enum MoviesApi {
     case fetchGenres(req: FetchGenreRequest)
+    case fetchTVGenres(req: FetchGenreRequest)
 }
 
 extension MoviesApi: TargetType {
@@ -26,6 +27,8 @@ extension MoviesApi: TargetType {
         switch self {
         case .fetchGenres: // a let elhagyható ha a paraméterrel nem dolgozunk
             return "genre/movie/list"
+        case .fetchTVGenres:
+            return "genre/tv/list"
         }
     }
     
@@ -33,6 +36,8 @@ extension MoviesApi: TargetType {
         switch self {
         case .fetchGenres: // a let elhagyható ha a paraméterrel nem dolgozunk
             return .get // Method.get-et rövidítjük -> get request
+        case .fetchTVGenres:
+            return .get
         }
     }
     //TODO: Másik encoding
@@ -40,12 +45,16 @@ extension MoviesApi: TargetType {
         switch self {
         case let .fetchGenres(req): // a let nem hagyható el, ha a paraméterrel dolgozunk
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case let .fetchTVGenres(req):
+            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         }
     }
     
     var headers: [String : String]? {
         switch self {
         case let .fetchGenres(req): // a let nem hagyható el, ha a paraméterrel dolgozunk
+            return ["Authorization": req.accessToken]
+        case let .fetchTVGenres(req):
             return ["Authorization": req.accessToken]
         }
     }

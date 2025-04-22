@@ -7,8 +7,8 @@
 
 import Foundation
 import Moya
-
-class MoviesService: GenreServiceProtocol {
+    
+class TVSeriesService: GenreServiceProtocol {
     
     var moya: MoyaProvider<MultiTarget>!
     
@@ -26,17 +26,17 @@ class MoviesService: GenreServiceProtocol {
     
     func fetchGenres(req: FetchGenreRequest) async throws -> [Genre] {
         return try await withCheckedThrowingContinuation { continuation in
-            moya.request(MultiTarget(MoviesApi.fetchGenres(req: req))) { result in
+            moya.request(MultiTarget(MoviesApi.fetchTVGenres(req: req))) { result in
                 switch result {
                 case .success(let response):
                     do {
                         let decodedResponse = try JSONDecoder().decode(GenreListResponse.self, from: response.data)
-                        
+                                
                         // mappelés => jobb megoldás mint a ciklusok
                         let genres = decodedResponse.genres.map { genreResponse in
                             Genre(dto: genreResponse)
                         }
-                        
+                                
                         continuation.resume(returning: genres)
                     } catch {
                         continuation.resume(throwing: error)

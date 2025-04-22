@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  movie-app
+
+  Created by Balint Fonad on 2025. 04. 12..
+  
+*/
+
+"genreSection.title" = "Movie app";

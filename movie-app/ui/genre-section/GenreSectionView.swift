@@ -5,32 +5,26 @@
 //  Created by Balint Fonad on 2025. 04. 22..
 //
 
-import SwiftUI
 
-class GenreSectionViewModel: ObservableObject {
+import SwiftUI
+import InjectPropertyWrapper
+
+protocol GenreSectionViewModelProtocol: ObservableObject {
+    
+}
+
+class GenreSectionViewModel: GenreSectionViewModelProtocol {
     @Published var genres: [Genre] = []
     
-    private var movieService: GenreServiceProtocol = MoviesService()
-    private var tvService: GenreServiceProtocol = TVSeriesService()
-    private var service: GenreServiceProtocol?
+    @Inject
+    private var movieService: MoviesServiceProtocol
     
     func fetchGenres() async {
-        // megnézi, hogy melyik sémát használjuk és az alapján választja ki a filmeket/sorozatokat
-        if Environment.name == .dev || Environment.name == .prod {
-            service = movieService
-        } else {
-            service = tvService
-        }
-        
-        // mivel a service optional ezért le kell kezelni, hogy nehogy nil legyen benne
-        guard let service = service else {
-                print("Service is not available")
-                return
-            }
-        
+   
         do {
             let request = FetchGenreRequest()
-            let genres = try await service.fetchGenres(req: request)
+            let genres = Environment.name == .tv ?
+            try await movieService.fetchTVGenres(req: request) : try await movieService.fetchGenres(req: request)
             DispatchQueue.main.async {
                 self.genres = genres
             }
@@ -53,7 +47,7 @@ struct GenreSectionView: View {
                 
                 List(viewModel.genres) { genre in // listán végigiterálás
                     ZStack {
-                        NavigationLink(destination: Color.gray) {
+                        NavigationLink(destination: MovieListView(genre: genre)) {
                             EmptyView()
                         }
                         .opacity(0)

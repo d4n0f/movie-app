@@ -8,42 +8,13 @@
 import SwiftUI
 import InjectPropertyWrapper
 
-protocol MovieListViewModelProtocol: ObservableObject {
-    
-}
-
-class MovieListViewModel: MovieListViewModelProtocol {
-    @Published var movies: [Movie] = []
-    //private let service: MoviesServiceProtocol = MoviesService()
-    
-    @Inject
-    private var service: MoviesServiceProtocol
-    
-    func loadMovies(by genreId: Int) async {
-        do {
-            let request = FetchMoviesRequest(genreId: genreId)
-            let movies = try await service.fetchMovies(req: request)
-            DispatchQueue.main.async {
-                self.movies = movies
-            }
-        } catch {
-            print("Error fetching genres: \(error)")
-        }
-    }
-}
-
 struct MovieListView: View {
     @StateObject private var viewModel = MovieListViewModel()
     let genre: Genre
     
     let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.adaptive(minimum: 150), spacing: 16)
     ]
-    
-//    let columns = [
-//        GridItem(.adaptive(minimum: 150), spacing: 16)
-//    ]
     
     var body: some View {
         ScrollView {
@@ -79,25 +50,24 @@ struct MovieCellView: View {
                                 ProgressView()
                             }
 
-                        case .success(let image):
+                        case let .success(image):
                             image
                                 .resizable()
                                 .scaledToFill()
 
-                        case .failure:
+                        case .failure(let error):
                             ZStack {
                                 Color.red.opacity(0.3)
                                 Image(systemName: "photo")
                                     .foregroundColor(.white)
                             }
-
-                        default:
+                        @unknown default:
                             EmptyView()
                         }
                     }
                     .frame(height: 100)
+                    .frame(maxHeight: 180)
                     .frame(maxWidth: .infinity)
-                    //.clipped() elhagyható
                     .cornerRadius(12)
                 }
                 
@@ -126,4 +96,8 @@ struct MovieCellView: View {
             Spacer()
         }
     }
+}
+
+#Preview {
+    MovieListView(genre: Genre(id: 28, name: "Action") )
 }

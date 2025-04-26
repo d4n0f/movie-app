@@ -4,7 +4,6 @@
 //
 //  Created by Balint Fonad on 2025. 04. 12..
 //
-
 import Foundation
 import Moya
 
@@ -12,11 +11,12 @@ enum MoviesApi {
     case fetchGenres(req: FetchGenreRequest)
     case fetchTVGenres(req: FetchGenreRequest)
     case fetchMovies(req: FetchMoviesRequest)
+    case searchMovies(req: SearchMovieRequest)
 }
 
 extension MoviesApi: TargetType {
     var baseURL: URL {
-        //TODO: Másik baseUrl
+        // TODO: Másik baseurl
         let baseUrl = "https://api.themoviedb.org/3/"
         guard let baseUrl = URL(string: baseUrl) else {
             preconditionFailure("Base url not valid url")
@@ -26,40 +26,47 @@ extension MoviesApi: TargetType {
     
     var path: String {
         switch self {
-        case .fetchGenres: // a let elhagyható ha a paraméterrel nem dolgozunk
+        case .fetchGenres:
             return "genre/movie/list"
         case .fetchTVGenres:
             return "genre/tv/list"
-        case .fetchMovies(req: let req):
+        case .fetchMovies:
             return "discover/movie"
+        case .searchMovies:
+            return "search/movie"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchGenres, .fetchTVGenres, .fetchMovies: // a let elhagyható ha a paraméterrel nem dolgozunk
-            return .get // Method.get-et rövidítjük -> get request
+        case .fetchGenres, .fetchTVGenres, .fetchMovies, .searchMovies:
+            return .get
         }
     }
-    //TODO: Másik encoding
-    var task: Moya.Task {
+    
+    // TODO: Másik encoding
+    var task: Task {
         switch self {
-        case let .fetchGenres(req): // a let nem hagyható el, ha a paraméterrel dolgozunk
+        case .fetchGenres(let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
-        case let .fetchTVGenres(req):
+        case .fetchTVGenres(let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
-        case .fetchMovies(req: let req):
+        case let .fetchMovies(req):
+            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case let .searchMovies(req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         }
     }
     
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         switch self {
-        case let .fetchGenres(req): // a let nem hagyható el, ha a paraméterrel dolgozunk
+        case let .fetchGenres(req):
             return ["Authorization": req.accessToken]
         case let .fetchTVGenres(req):
             return ["Authorization": req.accessToken]
-        case .fetchMovies(req: let req):
+        case let .fetchMovies(req):
+            return ["Authorization": req.accessToken]
+        case let .searchMovies(req):
             return ["Authorization": req.accessToken]
         }
     }

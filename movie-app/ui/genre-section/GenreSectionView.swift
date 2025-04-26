@@ -49,7 +49,7 @@ struct GenreSectionView: View {
         NavigationView {
             ZStack(alignment: .topTrailing) {
                 Image(.ellipse)
-                    .offset(x: 0, y: -153)
+                    .ignoresSafeArea(edges: .top)
                 
                 List(viewModel.genres) { genre in // listán végigiterálás
                     ZStack {

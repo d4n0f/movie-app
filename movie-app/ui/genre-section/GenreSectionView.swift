@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import Foundation
 import InjectPropertyWrapper
 
 struct GenreSectionView: View {
@@ -45,6 +46,15 @@ struct GenreSectionView: View {
             Task {
                 await viewModel.fetchGenres()
             }
+        }
+        .alert(item: $viewModel.alertModel) { model in
+            return Alert(
+                title: Text(LocalizedStringKey(model.title)),
+                message: Text(LocalizedStringKey(model.message)),
+                dismissButton: .default(Text(LocalizedStringKey(model.dismissButtonTitle))) {
+                    viewModel.alertModel = nil
+                }
+            )
         }
     }
 }

@@ -8,5 +8,7 @@
 
 "genreSection.title" = "Filmek app";
 "search.empty.title" = "Kezdj el gépelni\na kereséshez";
-"search.textfield.placeholder" = "Movies, Director, Actor, Actress, etc.";
-
+"search.textfield.placeholder" = "Film, Rendező, Színész, Színésznő, stb.";
+"unexpected.error.message" = "Valami félrecsúszott. Kérlek próbáld meg később.";
+"unexpected.error.title" = "Váratlan hiba";
+"error.dismissButton.title" = "Bezárás";

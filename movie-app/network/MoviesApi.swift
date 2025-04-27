@@ -27,7 +27,7 @@ extension MoviesApi: TargetType {
     var path: String {
         switch self {
         case .fetchGenres:
-            return "genre/movie/list2"
+            return "genre/movie/list"
         case .fetchTVGenres:
             return "genre/tv/list"
         case .fetchMovies:

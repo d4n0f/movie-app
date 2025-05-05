@@ -42,11 +42,6 @@ struct GenreSectionView: View {
                 .navigationTitle(Environment.name == .dev ? "DEV" : (Environment.name == .prod ? "PROD" : "TV"))
             }
         }
-        .onAppear() {
-            Task {
-                await viewModel.fetchGenres()
-            }
-        }
         .alert(item: $viewModel.alertModel) { model in
             return Alert(
                 title: Text(LocalizedStringKey(model.title)),

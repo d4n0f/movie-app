@@ -102,7 +102,11 @@ class GenreSectionViewModel: GenreSectionViewModelProtocol, ErrorViewModelProtoc
                     break
                 }
             } receiveValue: { [weak self]genres, genresTV in
-                self?.genres = genres + genresTV
+                if Environment.name == .tv {
+                    self?.genres = genresTV
+                } else {
+                    self?.genres = genres
+                }
             }
             .store(in: &cancellables)
     }

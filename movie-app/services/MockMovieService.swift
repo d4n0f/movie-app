@@ -115,6 +115,54 @@ class MockMoviesService: MoviesServiceProtocol {
     }
     
     func fetchTVGenres(req: FetchGenreRequest) async throws -> [Genre] {
-        []
+        return [
+            Genre(id: 0, name: "Action"),
+            Genre(id: 1, name: "Adventure"),
+            Genre(id: 2, name: "Animation"),
+            Genre(id: 3, name: "Comedy"),
+            
+        ]
+    }
+    
+    func fetchTVSeries(req: FetchMoviesRequest) async throws -> [TV] {
+        return [
+            TV(id: 1,
+                  title: "Mock tv1",
+                  year: "2024",
+                  duration: "40m",
+                  imageUrl: nil,
+                  rating: 1.0,
+                  voteCount: 1000),
+            TV(id: 2,
+                  title: "Mock tv2",
+                  year: "2024",
+                  duration: "40m",
+                  imageUrl: nil,
+                  rating: 1.0,
+                  voteCount: 1000),
+            TV(id: 3,
+                  title: "Mock tv3",
+                  year: "2024",
+                  duration: "40m",
+                  imageUrl: nil,
+                  rating: 1.0,
+                  voteCount: 1000),
+            TV(id: 4,
+                  title: "Mock tv4",
+                  year: "2024",
+                  duration: "40m",
+                  imageUrl: nil,
+                  rating: 1.0,
+                  voteCount: 1000),
+            TV(id: 5,
+                  title: "Mock tv5",
+                  year: "2024",
+                  duration: "40m",
+                  imageUrl: nil,
+                  rating: 1.0,
+                  voteCount: 1000),
+            
+        ]
+
     }
 }

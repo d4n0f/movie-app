@@ -101,6 +101,7 @@ protocol MoviesServiceProtocol {
     func fetchTVGenres(req: FetchGenreRequest) async throws -> [Genre]
     func fetchMovies(req: FetchMoviesRequest) async throws -> [Movie]
     func searchMovies(req: SearchMovieRequest) async throws -> [Movie]
+    func fetchTVSeries(req: FetchMoviesRequest) async throws -> [TV]
 }
 
 class MoviesService: MoviesServiceProtocol {
@@ -139,6 +140,14 @@ class MoviesService: MoviesServiceProtocol {
             transform: { (moviePageResponse: MoviePageResponse) in
                 moviePageResponse.results.map(Movie.init(dto:))
             }
+        )
+    }
+    
+    func fetchTVSeries(req: FetchMoviesRequest) async throws -> [TV] {
+        try await requestAndTransform(
+            target: MultiTarget(MoviesApi.fetchTVSeries(req: req)),
+            decodeTo: TVListResponse.self,
+            transform: { $0.results.map(TV.init(dto:)) }
         )
     }
     

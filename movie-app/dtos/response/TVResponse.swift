@@ -5,8 +5,18 @@
 //  Created by Balint Fonad on 2025. 05. 05..
 //
 
-struct TVListResponse: Decodable {
+struct TVPageResponse: Decodable {
+    let page: Int
     let results: [TVResponse]
+    let totalPages: Int
+    let totalResults: Int
+
+    enum CodingKeys: String, CodingKey {
+        case page
+        case results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
 }
 
 struct TVResponse: Decodable {

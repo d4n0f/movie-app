@@ -9,24 +9,26 @@ struct SearchView: View {
             VStack {
                 HStack(spacing: 12) {
                     Image(.icSearch)
-                        .foregroundColor(.white)
                         .frame(width: 24, height: 24)
                     
-                    TextField("search.textfield.placeholder",
-                            text: $viewModel.searchText,
-                            prompt: Text("search.textfield.placeholder")
-                                .foregroundStyle(.invertedMain)
-                              )
+                    TextField("",
+                              text: $viewModel.searchText,
+                              prompt: Text("search.textfield.placeholder")
+                                            .foregroundStyle(.invertedMain)
+                    )
                         .textFieldStyle(PlainTextFieldStyle())
                         .font(Fonts.searchText)
                         .foregroundColor(.invertedMain)
+                        .onChange(of: viewModel.searchText) {
+                            viewModel.startSearch.send(())
+                        }
                 }
                 .frame(height: 56)
                 .padding(.horizontal, LayoutConst.normalPadding)
                 .background(Color.searchBarForeground)
                 .overlay(
                     RoundedRectangle(cornerRadius: 28)
-                        .stroke(.invertedMain, lineWidth: 1)
+                        .stroke(Color.invertedMain, lineWidth: 1)
                 )
                 .cornerRadius(28)
                 .padding(.horizontal, LayoutConst.maxPadding)
@@ -43,9 +45,9 @@ struct SearchView: View {
                     }
                 } else {
                     ScrollView {
-                        VStack(spacing: LayoutConst.normalPadding) {
+                        LazyVStack(spacing: LayoutConst.normalPadding) {
                             ForEach(viewModel.movies) { movie in
-                                MovieCellView(movie: movie)
+                                MovieCell(movie: movie)
                                     .frame(height: 277)
                             }
                         }
@@ -54,7 +56,6 @@ struct SearchView: View {
                     }
                 }
             }
-            .navigationBarHidden(true)
         }
     }
 }

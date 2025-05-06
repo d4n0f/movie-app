@@ -12,3 +12,4 @@
 "unexpected.error.message" = "Something went wrong. Please try again later.";
 "unexpected.error.title" = "Unexpected Error";
 "error.dismissButton.title" = "Close";
+"favoriteMovies.title" = "Favorites";

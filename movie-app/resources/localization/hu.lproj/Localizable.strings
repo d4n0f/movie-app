@@ -12,3 +12,4 @@
 "unexpected.error.message" = "Valami félrecsúszott. Kérlek próbáld meg később.";
 "unexpected.error.title" = "Váratlan hiba";
 "error.dismissButton.title" = "Bezárás";
+"favoriteMovies.title" = "Kedvencek";

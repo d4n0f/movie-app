@@ -22,10 +22,7 @@ struct GenreSectionView: View {
                 
                 List(viewModel.genres) { genre in // listán végigiterálás
                     ZStack {
-                        NavigationLink(destination:
-                                        Environment.name == .tv
-                                       ? AnyView(TVListView(genre: genre))
-                                       : AnyView(MovieListView(genre: genre))) {
+                        NavigationLink(destination: MovieListView(genre: genre)) {
                             EmptyView()
                         }
                         .opacity(0)

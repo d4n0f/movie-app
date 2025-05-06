@@ -3,79 +3,41 @@ import Combine
 import InjectPropertyWrapper
 
 protocol SearchViewModelProtocol: ObservableObject {
-    var movies: [Movie] { get }
+    var movies: [MediaItem] { get }
     var searchText: String { get set }
-    func searchMovies() async
-    func setupDebounce()
 }
 
-class SearchViewModel: SearchViewModelProtocol {
-    @Published var movies: [Movie] = []
+class SearchViewModel: SearchViewModelProtocol, ErrorPrentable {
+    @Published var movies: [MediaItem] = []
     @Published var searchText: String = ""
-
-    @Inject
-    private var service: MoviesServiceProtocol
-
-    private var cancellables = Set<AnyCancellable>()
-
-    init() {
-        setupDebounce()
-    }
-
-    func searchMovies() async {
-        guard !searchText.isEmpty else {
-            DispatchQueue.main.async {
-                self.movies = []
-            }
-            return
-        }
-
-        do {
-            let request = SearchMovieRequest(query: searchText)
-            let movies = try await service.searchMovies(req: request)
-            DispatchQueue.main.async {
-                self.movies = movies
-            }
-        } catch {
-            print("Error searching movies: \(error)")
-        }
-    }
+    @Published var alertModel: AlertModel? = nil
     
-    func setupDebounce() {
-        $searchText
-            .debounce(for: .seconds(1), scheduler: RunLoop.main)
-            .removeDuplicates()
-            .sink { [weak self] newText in
-                Task {
-                    await self?.searchMovies()
+    
+    let startSearch = PassthroughSubject<Void, Never>()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    @Inject
+    private var service: ReactiveMoviesServiceProtocol
+    
+    init() {
+        startSearch
+            .print("<<< startSearch")
+            .debounce(for: .seconds(2.5), scheduler: RunLoop.main)
+            .flatMap { [weak self]_ ->  AnyPublisher<[MediaItem], MovieError> in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
                 }
+                let request = SearchMovieRequest(query: self.searchText)
+                return self.service.searchMovies(req: request)
+            }
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.alertModel = self?.toAlerModel(error)
+                }
+            } receiveValue: { [weak self] movies in
+                self?.movies = movies
             }
             .store(in: &cancellables)
     }
-    
-//    @Inject
-//    private var reactiveService: ReactiveMoviesServiceProtocol
-//
-//    init() {
-//        $searchText
-//            .debounce(for: .seconds(2.5), scheduler: RunLoop.main)
-////            .throttle(for: .seconds(1), scheduler: RunLoop.main, latest: true)
-//            .setFailureType(to: MovieError.self)
-//            .print("<<<$searchText")
-//            .map({ searchText in
-//                SearchMovieRequest(query: searchText)
-//            })
-//            .flatMap({ request -> AnyPublisher<[Movie], MovieError> in
-//                self.reactiveService.searchMovies(req: request)
-//            })
-//            .sink(receiveCompletion: { completion in
-//                if case let .failure(error) = completion {
-//                    //self.alertModel = self.toAlerModel(error)
-//                }
-//            }, receiveValue: { movies in
-//                print(movies)
-//            }
-//            )
-//            .store(in: &cancellables)
-//    }
 }

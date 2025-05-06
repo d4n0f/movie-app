@@ -4,11 +4,10 @@
 //
 //  Created by Balint Fonad on 2025. 04. 26..
 //
-
 import SwiftUI
 
-struct MovieCellView: View {
-    let movie: Movie
+struct MovieCell: View {
+    let movie: MediaItem
     
     var body: some View {
         VStack(alignment: .leading, spacing: LayoutConst.smallPadding) {
@@ -43,11 +42,12 @@ struct MovieCellView: View {
                     .cornerRadius(12)
                 }
                 
-                HStack(spacing: LayoutConst.normalPadding) {
+                HStack(spacing: 12.0) {
                     MovieLabel(type: .rating(movie.rating))
                     MovieLabel(type: .voteCount(movie.voteCount))
                 }
                 .padding(LayoutConst.smallPadding)
+                
             }
 
             Text(movie.title)
@@ -63,4 +63,15 @@ struct MovieCellView: View {
             Spacer()
         }
     }
+}
+
+#Preview {
+    MovieCell(movie: MediaItem(id: 2,
+                           title: "Mock movie2",
+                           year: "2024",
+                           duration: "1h 34m",
+                           imageUrl: nil,
+                           rating: 1.0,
+                           voteCount: 1000)
+    )
 }

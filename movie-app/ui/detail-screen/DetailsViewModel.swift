@@ -15,8 +15,10 @@ protocol DetailViewModelProtocol: ObservableObject {
 class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
     @Published var mediaItemDetail: MediaItemDetail = MediaItemDetail()
     @Published var alertModel: AlertModel? = nil
+    @Published var cast: Cast = Cast()
     
     let mediaItemIdSubject = PassthroughSubject<Int, Never>()
+    let castSubject = PassthroughSubject<Int, Never>()
     
     @Inject
     private var service: ReactiveMoviesServiceProtocol
@@ -33,8 +35,6 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
                 return self.service.fetchMovieDetails(req: request)
             }
         
-        //TODO: credits hívás
-        
         details
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
@@ -45,6 +45,28 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
                 self?.mediaItemDetail = mediaItemDetail
             }
             .store(in: &cancellables)
+        
+        //TODO: credits hívás
+        
+        let credits = castSubject
+            .flatMap { [weak self] mediaId in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                let request = FetchMovieCreditsRequest(mediaId: mediaId)
+                return self.service.fetchMovieCredits(req: request)
+            }
+        
+        credits
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.alertModel = self?.toAlertModel(error)
+                }
+            } receiveValue: { [weak self] cast in
+                self?.cast = cast
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -52,9 +74,11 @@ class DetailViewModel2: DetailViewModelProtocol, ErrorPresentable {
     @Published var alertModel: AlertModel? = nil
     @Published var mediaItem: MediaItemDetail = MediaItemDetail()
     @Published var isFavorite: Bool = false
+    @Published var cast: Cast = Cast()
     
     let mediaItemIdSubject = PassthroughSubject<Int, Never>()
     let favoriteButtonTapped = PassthroughSubject<Void, Never>()
+    let castSubject = PassthroughSubject<Int, Never>()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -86,6 +110,23 @@ class DetailViewModel2: DetailViewModelProtocol, ErrorPresentable {
                 }
                 let request = AddFavoriteRequest(movieId: mediaItem.id)
                 return service.addFavoriteMovie(req: request)
+            }
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.alertModel = self?.toAlertModel(error)
+                }
+            } receiveValue: { [weak self] mediaItem in
+                self?.isFavorite.toggle()
+            }
+            .store(in: &cancellables)
+        
+        castSubject
+            .flatMap { [weak self] mediaId -> AnyPublisher<Cast, MovieError> in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                let request = FetchMovieCreditsRequest(mediaId: mediaId)
+                return service.fetchMovieCredits(req: request)
             }
             .sink { [weak self] completion in
                 if case let .failure(error) = completion {

@@ -4,6 +4,7 @@
 //
 //  Created by Balint Fonad on 2025. 04. 12..
 //
+
 import Foundation
 import Moya
 
@@ -15,6 +16,7 @@ enum MoviesApi {
     case fetchTVSeries(req: FetchMediaListRequest)
     case fetchFavoriteMovies(req: FetchFavoriteMovieRequest)
     case addFavoriteMovie(req: AddFavoriteRequest)
+    case fetchDetails(req: FetchDetailRequest)
 }
 
 extension MoviesApi: TargetType {
@@ -43,12 +45,14 @@ extension MoviesApi: TargetType {
             return "account/\(req.accountId)/favorite/movies"
         case .addFavoriteMovie(req: let req):
             return "account/\(req.accountId)/favorite"
+        case .fetchDetails(req: let req):
+            return "movie/\(req.mediaId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchGenres, .fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies:
+        case .fetchGenres, .fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails:
             return .get
         case .addFavoriteMovie:
             return .post
@@ -72,6 +76,8 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .addFavoriteMovie(req: let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case .fetchDetails(req: let req):
+            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         }
     }
     
@@ -94,7 +100,8 @@ extension MoviesApi: TargetType {
             return ["Authorization": req.accessToken]
         case .addFavoriteMovie(req: let req):
             return ["Authorization": req.accessToken]
-
+        case .fetchDetails(req: let req):
+            return ["Authorization": req.accessToken]
         }
     }
 }

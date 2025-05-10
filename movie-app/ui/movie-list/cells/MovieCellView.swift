@@ -4,6 +4,7 @@
 //
 //  Created by Balint Fonad on 2025. 04. 26..
 //
+
 import SwiftUI
 
 struct MovieCell: View {
@@ -57,7 +58,7 @@ struct MovieCell: View {
             Text("\(movie.year)")
                 .font(Fonts.paragraph)
 
-            Text("\(movie.duration)")
+            Text("\(movie.runtime)")
                 .font(Fonts.caption)
 
             Spacer()
@@ -69,9 +70,10 @@ struct MovieCell: View {
     MovieCell(movie: MediaItem(id: 2,
                            title: "Mock movie2",
                            year: "2024",
-                           duration: "1h 34m",
+                           runtime: "1h 34m",
                            imageUrl: nil,
                            rating: 1.0,
-                           voteCount: 1000)
+                           voteCount: 1000
+                        )
     )
 }

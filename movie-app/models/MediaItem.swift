@@ -12,16 +12,16 @@ struct MediaItem: Identifiable {
     let id: Int
     let title: String
     let year: String
-    let duration: String
+    let runtime: String
     let imageUrl: URL?
     let rating: Double
     let voteCount: Int
     
-    init(id: Int, title: String, year: String, duration: String, imageUrl: URL?, rating: Double, voteCount: Int) {
+    init(id: Int, title: String, year: String, runtime: String, imageUrl: URL?, rating: Double, voteCount: Int) {
         self.id = id
         self.title = title
         self.year = year
-        self.duration = duration
+        self.runtime = runtime
         self.imageUrl = imageUrl
         self.rating = rating
         self.voteCount = voteCount
@@ -31,7 +31,7 @@ struct MediaItem: Identifiable {
         let releaseDate: String? = dto.releaseDate
         let prefixedYear: Substring = releaseDate?.prefix(4) ?? "-"
         let year = String(prefixedYear)
-        let duration = "1h 25min" // TODO: placeholder – ha lesz ilyen adat, cserélhető
+        let runtime = "1h 25min" // TODO: placeholder – ha lesz ilyen adat, cserélhető
         
         var imageUrl: URL? {
             dto.posterPath.flatMap {
@@ -42,7 +42,7 @@ struct MediaItem: Identifiable {
         self.id = dto.id
         self.title = dto.title
         self.year = year
-        self.duration = duration
+        self.runtime = runtime
         self.imageUrl = imageUrl
         self.rating = dto.voteAverage ?? 0.0
         self.voteCount = dto.voteCount ?? 0
@@ -53,7 +53,7 @@ struct MediaItem: Identifiable {
         let releaseDate: String? = dto.firstAirDate
         let prefixedYear: Substring = releaseDate?.prefix(4) ?? "-"
         let year = String(prefixedYear)
-        let duration = "1h 25min" // TODO: placeholder – ha lesz ilyen adat, cserélhető
+        let runtime = "1h 25min" // TODO: placeholder – ha lesz ilyen adat, cserélhető
         
         var imageUrl: URL? {
             dto.posterPath.flatMap {
@@ -64,7 +64,7 @@ struct MediaItem: Identifiable {
         self.id = dto.id
         self.title = dto.name
         self.year = year
-        self.duration = duration
+        self.runtime = runtime
         self.imageUrl = imageUrl
         self.rating = dto.voteAverage ?? 0.0
         self.voteCount = dto.voteCount ?? 0

@@ -13,3 +13,12 @@
 "unexpected.error.title" = "Váratlan hiba";
 "error.dismissButton.title" = "Bezárás";
 "favoriteMovies.title" = "Kedvencek";
+"detail.rate.button" = "Értékelje a filmet";
+"detail.imdb.button" = "Látogassa meg az IMDB-t";
+"detail.releaseDate" = "Bemutató ideje";
+"detail.runtime" = "Időtartam";
+"detail.language" = "Nyelv";
+"detail.overview" = "Áttekintés";
+"available" = "Elérhető";
+"unavailable" = "Nem elérhető";
+"detail.minutes" = "perc";

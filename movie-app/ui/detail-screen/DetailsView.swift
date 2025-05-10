@@ -82,6 +82,7 @@ struct DetailView: View {
 
             }
             .padding(.horizontal, LayoutConst.maxPadding)
+            .padding(.top, LayoutConst.maxPadding)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -90,8 +91,8 @@ struct DetailView: View {
                 }) {
                     Image(.favourite)
                         .resizable()
-                        .frame(height: 40.0)
-                        .frame(width: 40.0)
+                        .frame(height: 44.0)
+                        .frame(width: 44.0)
                 }
             }
         }

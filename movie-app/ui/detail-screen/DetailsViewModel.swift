@@ -46,7 +46,6 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
             }
             .store(in: &cancellables)
         
-        //TODO: credits hívás
         
         let credits = castSubject
             .flatMap { [weak self] mediaId in

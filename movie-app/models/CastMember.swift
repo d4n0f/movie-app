@@ -15,7 +15,7 @@ struct CastMember: Identifiable {
     let name: String
     let originalName: String
     let popularity: Double
-    let profilePath: String?
+    let profilePath: URL?
     let castId: Int
     let character: String
     let creditId: String
@@ -43,7 +43,7 @@ struct CastMember: Identifiable {
          name: String,
          originalName: String,
          popularity: Double,
-         profilePath: String?,
+         profilePath: URL?,
          castId: Int,
          character: String,
          creditId: String,
@@ -64,6 +64,12 @@ struct CastMember: Identifiable {
     }
     
     init(dto: CastResponse) {
+        var profilePath: URL? {
+            dto.profilePath.flatMap {
+                URL(string: "https://image.tmdb.org/t/p/w500\($0)")
+            }
+        }
+        
         self.adult = dto.adult
         self.gender = dto.gender
         self.id = dto.id
@@ -71,7 +77,7 @@ struct CastMember: Identifiable {
         self.name = dto.name
         self.originalName = dto.originalName
         self.popularity = dto.popularity
-        self.profilePath = dto.profilePath
+        self.profilePath = profilePath
         self.castId = dto.castId
         self.character = dto.character
         self.creditId = dto.creditId

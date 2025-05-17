@@ -5,7 +5,7 @@
 //  Created by Balint Fonad on 2025. 05. 10..
 //
 
-struct ProductionCompanyResponse: Decodable {
+struct ProductionCompanyResponse: Decodable, Hashable {
     let id: Int
     let name: String
     let logoPath: String?

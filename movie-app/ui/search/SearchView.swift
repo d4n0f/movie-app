@@ -3,6 +3,7 @@ import InjectPropertyWrapper
 
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
+//    @StateObject private var detailViewModel = DetailViewModel()
     
     var body: some View {
         NavigationView {

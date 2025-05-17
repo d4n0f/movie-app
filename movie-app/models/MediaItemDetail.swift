@@ -7,6 +7,7 @@
 
 import Foundation
 
+//TODO: atirni egyes szamba
 struct MediaItemDetail: Identifiable {
     let id: Int
     let title: String
@@ -20,7 +21,7 @@ struct MediaItemDetail: Identifiable {
     let adult: Bool
     let genres: [String]
     let spokenLanguages: String
-    let productionCompanies: [String]
+    let productionCompanies: [ProductionCompany]
     
     init() {
         self.id = 0
@@ -44,12 +45,12 @@ struct MediaItemDetail: Identifiable {
          imageUrl: URL?,
          rating: Double,
          voteCount: Int,
-         overview: String = "",
-         popularity: Double = 0,
-         adult: Bool = false,
-         genres: [String] = [],
-         spokenLanguages: String = "",
-         productionCompanies: [String] = []
+         overview: String,
+         popularity: Double,
+         adult: Bool,
+         genres: [String],
+         spokenLanguages: String,
+         productionCompanies: [ProductionCompany]
     ) {
         self.id = id
         self.title = title
@@ -91,7 +92,7 @@ struct MediaItemDetail: Identifiable {
         self.spokenLanguages = dto.spokenLanguages
             .map({ $0.englishName })
             .joined(separator: ", ")
-        self.productionCompanies = dto.productionCompanies.map({ $0.name })
+        self.productionCompanies = dto.productionCompanies.map { ProductionCompany(dto: $0) }
     }
     
     var genreList: String {

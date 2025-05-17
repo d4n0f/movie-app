@@ -8,4 +8,9 @@
 struct MovieCreditResponse: Decodable {
     let id: Int
     let cast: [CastResponse]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case cast
+    }
 }

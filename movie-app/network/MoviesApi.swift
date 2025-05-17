@@ -15,7 +15,7 @@ enum MoviesApi {
     case searchMovies(req: SearchMovieRequest)
     case fetchTVSeries(req: FetchMediaListRequest)
     case fetchFavoriteMovies(req: FetchFavoriteMovieRequest)
-    case addFavoriteMovie(req: AddFavoriteRequest)
+    case editFavouriteMovies(req: EditFavouriteRequest)
     case fetchDetails(req: FetchDetailRequest)
     case fetchMovieCredits(req: FetchMovieCreditsRequest)
 }
@@ -44,7 +44,7 @@ extension MoviesApi: TargetType {
             return "discover/tv"
         case let .fetchFavoriteMovies(req):
             return "account/\(req.accountId)/favorite/movies"
-        case .addFavoriteMovie(req: let req):
+        case .editFavouriteMovies(req: let req):
             return "account/\(req.accountId)/favorite"
         case .fetchDetails(req: let req):
             return "movie/\(req.mediaId)"
@@ -55,9 +55,9 @@ extension MoviesApi: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .fetchGenres, .fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits:
+        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits:
             return .get
-        case .addFavoriteMovie:
+        case .editFavouriteMovies:
             return .post
         }
     }
@@ -77,8 +77,10 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case let .fetchFavoriteMovies(req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
-        case .addFavoriteMovie(req: let req):
-            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case .editFavouriteMovies(req: let req):
+                    //return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.httpBody)
+                    let request = EditFavouriteRequest(movieId: req.movieId, isFavorite: req.isFavorite)
+                        return .requestJSONEncodable(request)
         case .fetchDetails(req: let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .fetchMovieCredits(req: let req):
@@ -103,8 +105,11 @@ extension MoviesApi: TargetType {
             return ["Authorization": req.accessToken]
         case let .fetchFavoriteMovies(req):
             return ["Authorization": req.accessToken]
-        case .addFavoriteMovie(req: let req):
-            return ["Authorization": req.accessToken]
+        case .editFavouriteMovies(req: let req):
+            return [
+                "Authorization": req.accessToken,
+                "accept": "application/json"
+            ]
         case .fetchDetails(req: let req):
             return ["Authorization": req.accessToken]
         case .fetchMovieCredits(req: let req):

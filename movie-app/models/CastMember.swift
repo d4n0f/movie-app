@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CastMember: Identifiable {
+struct CastMember: Identifiable, Hashable {
     let adult: Bool
     let gender: Int
     let id: Int

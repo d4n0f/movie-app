@@ -11,7 +11,7 @@
 "search.textfield.placeholder" = "Movies, Director, Actor, Actress, etc.";
 "unexpected.error.message" = "Something went wrong. Please try again later.";
 "unexpected.error.title" = "Unexpected Error";
-"error.dismissButton.title" = "Close";
+"button.close.text" = "Close";
 "favoriteMovies.title" = "Favorites";
 "detail.rate.button" = "Rate this movie";
 "detail.imdb.button" = "Visit at IMDB";
@@ -22,3 +22,5 @@
 "available" = "Available";
 "unavailable" = "Unavailable";
 "detail.minutes" = "min";
+"detail.cast" = "Cast";
+"detail.companies" = "Publishers and companies";

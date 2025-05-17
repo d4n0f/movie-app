@@ -5,7 +5,7 @@
 //  Created by Balint Fonad on 2025. 05. 10..
 //
 
-struct Cast: Identifiable {
+struct Cast: Identifiable{
     let id: Int
     let cast: [CastMember]
     

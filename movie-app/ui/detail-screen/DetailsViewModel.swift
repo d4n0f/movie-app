@@ -16,9 +16,11 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
     @Published var mediaItemDetail: MediaItemDetail = MediaItemDetail()
     @Published var alertModel: AlertModel? = nil
     @Published var cast: Cast = Cast()
+    @Published var isFavourite: Bool = false
     
     let mediaItemIdSubject = PassthroughSubject<Int, Never>()
     let castSubject = PassthroughSubject<Int, Never>()
+    let favoriteButtonTapped = PassthroughSubject<Void, Never>()
     
     @Inject
     private var service: ReactiveMoviesServiceProtocol
@@ -26,6 +28,7 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        //TODO: a castSubject-et áthozni a mediaItemIdSubjectbe
         let details = mediaItemIdSubject
             .flatMap { [weak self]mediaItemId in
                 guard let self = self else {
@@ -66,6 +69,38 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
                 self?.cast = cast
             }
             .store(in: &cancellables)
+        
+        favoriteButtonTapped
+            .flatMap { [weak self] _ -> AnyPublisher<(EditFavouriteResult, Bool), MovieError> in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                let isFavourite = !self.isFavourite
+                let request = EditFavouriteRequest(movieId: self.mediaItemDetail.id, isFavorite: isFavourite)
+                return service.editFavouriteMovies(req: request)
+                    .map { result in
+                    (result, isFavourite)
+                }
+                .eraseToAnyPublisher()
+            }
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.alertModel = self?.toAlertModel(error)
+                }
+            } receiveValue: { [weak self] result, isFavorite in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                if result.success {
+                    self.isFavourite = isFavourite
+                    if isFavorite {
+                        //self.favoriteMediaStore.addFavoriteMediaItem(self.mediaItemDetail)
+                    } else {
+                        //self.favoruiteMediaStore.removeFavouriteMediaItem(withId: self.mediaItemDetail.id)
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -103,12 +138,12 @@ class DetailViewModel2: DetailViewModelProtocol, ErrorPresentable {
             .store(in: &cancellables)
         
         favoriteButtonTapped
-            .flatMap { [weak self] mediaItemId -> AnyPublisher<AddFavoriteResponse, MovieError> in
+            .flatMap { [weak self] mediaItemId -> AnyPublisher<EditFavouriteResult, MovieError> in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = AddFavoriteRequest(movieId: mediaItem.id)
-                return service.addFavoriteMovie(req: request)
+                let request = EditFavouriteRequest(movieId: mediaItem.id, isFavorite: true)
+                return service.editFavouriteMovies(req: request)
             }
             .sink { [weak self] completion in
                 if case let .failure(error) = completion {
@@ -131,8 +166,8 @@ class DetailViewModel2: DetailViewModelProtocol, ErrorPresentable {
                 if case let .failure(error) = completion {
                     self?.alertModel = self?.toAlertModel(error)
                 }
-            } receiveValue: { [weak self] mediaItem in
-                self?.isFavorite.toggle()
+            } receiveValue: { [weak self] cast in
+                self?.cast = cast
             }
             .store(in: &cancellables)
     }

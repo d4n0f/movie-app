@@ -26,7 +26,7 @@ class FavoritesViewModel: FavoritesViewModelProtocol, ErrorPresentable {
                 }
                 let request = FetchFavoriteMovieRequest()
                 
-                return service.fetchFavoriteMovies(req: request)
+                return self.service.fetchFavoriteMovies(req: request, fromLocal: true)
             }
             .receive(on: RunLoop.main)
             .sink { completion in

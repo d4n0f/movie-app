@@ -11,7 +11,7 @@
 "search.textfield.placeholder" = "Film, Rendező, Színész, Színésznő, stb.";
 "unexpected.error.message" = "Valami félrecsúszott. Kérlek próbáld meg később.";
 "unexpected.error.title" = "Váratlan hiba";
-"error.dismissButton.title" = "Bezárás";
+"button.close.text" = "Bezárás";
 "favoriteMovies.title" = "Kedvencek";
 "detail.rate.button" = "Értékelje a filmet";
 "detail.imdb.button" = "Látogassa meg az IMDB-t";
@@ -22,3 +22,5 @@
 "available" = "Elérhető";
 "unavailable" = "Nem elérhető";
 "detail.minutes" = "perc";
+"detail.cast" = "Szereplők";
+"detail.companies" = "Kiadók és cégek";

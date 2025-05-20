@@ -10,6 +10,7 @@ import InjectPropertyWrapper
 
 struct MovieListView: View {
     @StateObject private var viewModel = MovieListViewModel()
+//    @StateObject private var detailViewModel = DetailViewModel()
     let genre: Genre
     
     let columns = [

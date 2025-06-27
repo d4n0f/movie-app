@@ -24,3 +24,5 @@
 "detail.minutes" = "min";
 "detail.cast" = "Cast";
 "detail.companies" = "Publishers and companies";
+"noInternet" = "No internet connection";
+

@@ -1,12 +1,12 @@
 //
-//  AddFavoriteResponse.swift
+//  EditFavouriteResponse.swift
 //  movie-app
 //
 //  Created by Balint Fonad on 2025. 05. 06..
 //
 
 
-struct AddFavoriteResponse : Decodable {
+struct EditFavouriteResponse : Decodable {
     let success : Bool
     let statusCode : Int
     let statusMessage : String

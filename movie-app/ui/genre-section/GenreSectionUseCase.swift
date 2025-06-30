@@ -52,9 +52,11 @@ class GenreSectionUseCaseImpl: GenreSectionUseCase {
     }
     
     func loadMovies(for genre: Genre) -> AnyPublisher<[MediaItem], MovieError> {
-        let request = FetchMediaListRequest(genreId: genre.id, includeAdult: true)
+        let request = FetchMediaListRequest(genreId: genre.id, includeAdult: true, page: 1)
         return self.repository.fetchMovies(req: request)
-            .delay(for: .seconds(2), scheduler: RunLoop.main)
+            .map({ page in
+                page.mediaItems
+            })
             .eraseToAnyPublisher()
                                         
     }

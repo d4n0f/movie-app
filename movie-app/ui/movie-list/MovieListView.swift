@@ -10,7 +10,6 @@ import InjectPropertyWrapper
 
 struct MovieListView: View {
     @StateObject private var viewModel = MovieListViewModel()
-//    @StateObject private var detailViewModel = DetailViewModel()
     let genre: Genre
     
     let columns = [
@@ -20,15 +19,27 @@ struct MovieListView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: LayoutConst.largePadding) {
-                ForEach(viewModel.movies) { movie in
+                ForEach(viewModel.movies.indices, id: \.self) { index in
+                    let movie = viewModel.movies[index]
                     NavigationLink(destination: DetailView(mediaItem: movie)) {
                         MovieCell(movie: movie)
+                            .onAppear {
+                                if index == viewModel.movies.count - 1 {
+                                    viewModel.reachedBottomSubject.send()
+                                }
+                            }
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.horizontal, LayoutConst.normalPadding)
             .padding(.top, LayoutConst.normalPadding)
+            
+            if viewModel.isLoading {
+                ProgressView()
+                    .padding()
+                    .padding(.bottom, LayoutConst.largePadding)
+            }
         }
         .navigationTitle(genre.name)
         .showAlert(model: $viewModel.alertModel)

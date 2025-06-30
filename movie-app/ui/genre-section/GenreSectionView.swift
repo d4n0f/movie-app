@@ -7,13 +7,13 @@
 
 
 import SwiftUI
-import Foundation
 import InjectPropertyWrapper
 
 struct GenreSectionView: View {
-    @StateObject private var viewModel = GenreSectionViewModel()
+    @StateObject private var viewModel = GenreSectionViewModelImpl()
     
     var body: some View {
+        let title = Environments.name == .tv ? "TV" : "genreSection.title".localized()
         NavigationView {
             ZStack(alignment: .topTrailing) {
                 Image(.ellipse)
@@ -32,18 +32,14 @@ struct GenreSectionView: View {
                     .listRowSeparator(.hidden)// lista separatorok eltüntetése
                 }
                 .listStyle(.plain)
-                .navigationTitle(Environment.name == .tv ? "TV" : "genreSection.title")
+                .navigationTitle(title)
                 .accessibilityLabel("testCollectionView")
             }
         }
-        .alert(item: $viewModel.alertModel) { model in
-            return Alert(
-                title: Text(LocalizedStringKey(model.title)),
-                message: Text(LocalizedStringKey(model.message)),
-                dismissButton: .default(Text(LocalizedStringKey(model.dismissButtonTitle))) {
-                    viewModel.alertModel = nil
-                }
-            )
+        .showAlert(model: $viewModel.alertModel)
+        .onAppear{
+            viewModel.loadGenres()
+            viewModel.genresAppeared()
         }
     }
 }

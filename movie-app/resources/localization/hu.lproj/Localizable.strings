@@ -25,3 +25,5 @@
 "detail.cast" = "Szereplők";
 "detail.companies" = "Kiadók és cégek";
 "noInternet" = "Nincs internetkapcsolat";
+"addReview.subTitle" = "Adjon őszinte véleményt";
+"addReview.buttonTitle" = "Véleményem elküldése";

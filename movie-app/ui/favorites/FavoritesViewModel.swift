@@ -15,18 +15,16 @@ class FavoritesViewModel: FavoritesViewModelProtocol, ErrorPresentable {
     let viewLoaded = PassthroughSubject<Void, Never>()
     
     @Inject
-    private var service: ReactiveMoviesServiceProtocol
+    private var repository: MovieRepository
     
     init() {
         
         viewLoaded
-            .flatMap { [weak self] _ -> AnyPublisher<[MediaItem], MovieError> in
+            .flatMap { [weak self]_ -> AnyPublisher<[MediaItem], MovieError> in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = FetchFavoriteMovieRequest()
-                
-                return self.service.fetchFavoriteMovies(req: request, fromLocal: true)
+                return self.repository.fetchFavoriteMovies(req: FetchFavoriteMovieRequest(), fromLocal: false)
             }
             .receive(on: RunLoop.main)
             .sink { completion in
@@ -36,7 +34,7 @@ class FavoritesViewModel: FavoritesViewModelProtocol, ErrorPresentable {
                 case .finished:
                     break
                 }
-            } receiveValue: { [weak self] mediaItems in
+            } receiveValue: { [weak self]mediaItems in
                 self?.mediaItems = mediaItems
             }
             .store(in: &cancellables)

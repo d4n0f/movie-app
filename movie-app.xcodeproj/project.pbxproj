@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		193E21212DBCADE1007F6CB5 /* InjectPropertyWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 193E21202DBCADE1007F6CB5 /* InjectPropertyWrapper */; };
 		193E212D2DBCAFCB007F6CB5 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 193E212C2DBCAFCB007F6CB5 /* Swinject */; };
+		197CB8982E0EF1FD00C533FE /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 197CB8972E0EF1FD00C533FE /* Reachability */; };
+		197CB89B2E0EF20800C533FE /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 197CB89A2E0EF20800C533FE /* SDWebImageSwiftUI */; };
+		197CB89E2E0EF23D00C533FE /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 197CB89D2E0EF23D00C533FE /* RealmSwift */; };
 		19DF14FF2DB7C7D700E80410 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 19DF14FE2DB7C7D700E80410 /* CombineMoya */; };
 		19DF15012DB7C7D700E80410 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 19DF15002DB7C7D700E80410 /* Moya */; };
 /* End PBXBuildFile section */
@@ -43,8 +46,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				197CB89B2E0EF20800C533FE /* SDWebImageSwiftUI in Frameworks */,
 				19DF15012DB7C7D700E80410 /* Moya in Frameworks */,
+				197CB89E2E0EF23D00C533FE /* RealmSwift in Frameworks */,
 				19DF14FF2DB7C7D700E80410 /* CombineMoya in Frameworks */,
+				197CB8982E0EF1FD00C533FE /* Reachability in Frameworks */,
 				193E21212DBCADE1007F6CB5 /* InjectPropertyWrapper in Frameworks */,
 				193E212D2DBCAFCB007F6CB5 /* Swinject in Frameworks */,
 			);
@@ -93,6 +99,9 @@
 				19DF15002DB7C7D700E80410 /* Moya */,
 				193E21202DBCADE1007F6CB5 /* InjectPropertyWrapper */,
 				193E212C2DBCAFCB007F6CB5 /* Swinject */,
+				197CB8972E0EF1FD00C533FE /* Reachability */,
+				197CB89A2E0EF20800C533FE /* SDWebImageSwiftUI */,
+				197CB89D2E0EF23D00C533FE /* RealmSwift */,
 			);
 			productName = "movie-app";
 			productReference = 194BFEB32DB7B00D00ACD1BB /* movie-app.app */;
@@ -127,6 +136,9 @@
 				19DF14FD2DB7C7D700E80410 /* XCRemoteSwiftPackageReference "Moya" */,
 				193E211F2DBCADE1007F6CB5 /* XCRemoteSwiftPackageReference "InjectPropertyWrapper" */,
 				193E212B2DBCAFCB007F6CB5 /* XCRemoteSwiftPackageReference "Swinject" */,
+				197CB8962E0EF1FD00C533FE /* XCRemoteSwiftPackageReference "Reachability" */,
+				197CB8992E0EF20800C533FE /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				197CB89C2E0EF23D00C533FE /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 194BFEB42DB7B00D00ACD1BB /* Products */;
@@ -753,6 +765,30 @@
 				minimumVersion = 2.9.1;
 			};
 		};
+		197CB8962E0EF1FD00C533FE /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		197CB8992E0EF20800C533FE /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+		197CB89C2E0EF23D00C533FE /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		19DF14FD2DB7C7D700E80410 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -773,6 +809,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 193E212B2DBCAFCB007F6CB5 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
+		};
+		197CB8972E0EF1FD00C533FE /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 197CB8962E0EF1FD00C533FE /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+		197CB89A2E0EF20800C533FE /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 197CB8992E0EF20800C533FE /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		197CB89D2E0EF23D00C533FE /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 197CB89C2E0EF23D00C533FE /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		19DF14FE2DB7C7D700E80410 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;

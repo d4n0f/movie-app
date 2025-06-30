@@ -1,13 +1,13 @@
 //
-//  MovieCreditResponse.swift
+//  MovieCreditsResponse.swift
 //  movie-app
 //
 //  Created by Balint Fonad on 2025. 05. 10..
 //
 
-struct MovieCreditResponse: Decodable {
+struct MovieCreditsResponse: Decodable {
     let id: Int
-    let cast: [CastResponse]
+    let cast: [CastMemberResponse]
     
     enum CodingKeys: String, CodingKey {
         case id

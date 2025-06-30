@@ -24,3 +24,4 @@
 "detail.minutes" = "perc";
 "detail.cast" = "Szereplők";
 "detail.companies" = "Kiadók és cégek";
+"noInternet" = "Nincs internetkapcsolat";

@@ -15,6 +15,9 @@ class GenreSectionViewModel: GenreSectionViewModelProtocol, ErrorPresentable {
     @Inject
     private var service: ReactiveMoviesServiceProtocol
     
+    @Inject
+    private var mediaItemRepository: MediaItemStoreProtocol
+    
     init() {
         let request = FetchGenreRequest()
         

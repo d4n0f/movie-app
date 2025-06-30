@@ -19,23 +19,31 @@ struct GenreSectionView: View {
                 Image(.ellipse)
                     .ignoresSafeArea(edges: .top)
                 
-                List(viewModel.genres) { genre in // listán végigiterálás
-                    ZStack {
-                        NavigationLink(destination: MovieListView(genre: genre)) {
-                            EmptyView()
-                        }
-                        .opacity(0)
-                        
-                        GenreSectionCell(
-                            genre: genre,
-                            movies: viewModel.movies[genre.id] ?? [],
-                            onExpand: {
-                                viewModel.loadMovies(for: genre)
-                            }
-                        )
+                List {
+                    if let motd = viewModel.motdMovie {
+                        GenreMotdCell(mediaItem: motd)
+                            .background(Color.clear)
+                            .listStyle(.plain)
                     }
-                    .listRowBackground(Color.clear) // lista sorainak hátterének kikapcsolása
-                    .listRowSeparator(.hidden)// lista separatorok eltüntetése
+                    
+                    ForEach(viewModel.genres) { genre in
+                        ZStack {
+                            NavigationLink(destination: MovieListView(genre: genre)) {
+                                EmptyView()
+                            }
+                            .opacity(0)
+                            
+                            GenreSectionCell(
+                                genre: genre,
+                                movies: viewModel.movies[genre.id] ?? [],
+                                onExpand: {
+                                    viewModel.loadMovies(for: genre)
+                                }
+                            )
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                    }
                 }
                 .listStyle(.plain)
                 .navigationTitle(title)

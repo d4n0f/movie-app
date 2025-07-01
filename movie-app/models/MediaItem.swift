@@ -11,17 +11,27 @@ struct MediaItemPage {
     let page: Int
     let totalPages: Int
     let mediaItems: [MediaItem]
+    let totalResults: Int?
     
     init(dto: MoviePageResponse) {
         self.page = dto.page
         self.totalPages = dto.totalPages
         self.mediaItems = dto.results.map(MediaItem.init(dto:))
+        self.totalResults = nil
     }
     
     init(dto: TVPageResponse) {
         self.page = dto.page
         self.totalPages = dto.totalPages
         self.mediaItems = dto.results.map(MediaItem.init(dto:))
+        self.totalResults = nil
+    }
+    
+    init(dto: SimilarMoviePageResponse) {
+        self.page = dto.page
+        self.totalPages = dto.totalPages
+        self.mediaItems = dto.results.map(MediaItem.init(dto:))
+        self.totalResults = dto.totalResults
     }
 }
 
@@ -107,5 +117,26 @@ struct MediaItem: Identifiable {
         self.rating = detail.rating
         self.voteCount = detail.voteCount
         
+    }
+    
+    init(dto: SimilarMovieResponse) {
+        let releaseDate: String? = dto.releaseDate
+        let prefixedYear: Substring = releaseDate?.prefix(4) ?? "-"
+        let year = String(prefixedYear)
+        let duration = "1h 25min"
+        
+        var imageUrl: URL? {
+            dto.posterPath.flatMap {
+                URL(string: "https://image.tmdb.org/t/p/w500\($0)")
+            }
+        }
+        
+        self.id = dto.id
+        self.title = dto.title
+        self.year = year
+        self.duration = duration
+        self.imageUrl = imageUrl
+        self.rating = dto.voteAverage ?? 0.0
+        self.voteCount = dto.voteCount ?? 0
     }
 }

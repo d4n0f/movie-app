@@ -21,6 +21,7 @@ enum MoviesApi {
     case fetchCastDetail(req: FetchParticipantDetailRequest)
     case fetchCompanyDetail(req: FetchParticipantDetailRequest)
     case fetchMovieReviews(req: FetchMediaItemReviewRequest)
+    case fetchSimilarMovies(req: FetchSimilarMovieRequest)
 }
 
 extension MoviesApi: TargetType {
@@ -59,12 +60,14 @@ extension MoviesApi: TargetType {
             return "company/\(req.personId)"
         case .fetchMovieReviews(req: let req):
             return "movie/\(req.mediaId)/reviews"
+        case .fetchSimilarMovies(req: let req):
+            return "movie/\(req.mediaId)/similar"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits, .fetchCastDetail, .fetchCompanyDetail, .fetchMovieReviews:
+        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits, .fetchCastDetail, .fetchCompanyDetail, .fetchMovieReviews, .fetchSimilarMovies:
             return .get
         case .editFavouriteMovies:
             return .post
@@ -100,6 +103,8 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .fetchMovieReviews(req: let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case .fetchSimilarMovies(req: let req):
+            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         }
     }
     
@@ -134,6 +139,8 @@ extension MoviesApi: TargetType {
         case .fetchCompanyDetail(req: let req):
             return ["Authorization": req.accessToken]
         case .fetchMovieReviews(req: let req):
+            return ["Authorization": req.accessToken]
+        case .fetchSimilarMovies(req: let req):
             return ["Authorization": req.accessToken]
         }
     }

@@ -10,13 +10,14 @@ class MovieListViewModel: MovieListViewModelProtocol, ErrorPresentable {
     @Published var movies: [MediaItem] = []
     @Published var alertModel: AlertModel? = nil
     @Published var isLoading: Bool = false
+    @Published var isReset: Bool = false
     
     let genreIdSubject = PassthroughSubject<Int, Never>()
     let reachedBottomSubject = CurrentValueSubject<Void, Never>(())
     
     private var cancellables = Set<AnyCancellable>()
     
-    private var currentPage: Int = 1
+    private var currentPage: Int = 0
     private var totalPages: Int = Int.max
     
     @Inject
@@ -41,6 +42,7 @@ class MovieListViewModel: MovieListViewModelProtocol, ErrorPresentable {
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
+                self.currentPage += 1
                 let request = FetchMediaListRequest(genreId: genreId, includeAdult: true, page: self.currentPage)
                 return Environments.name == .tv ?
                         self.repository.fetchTV(req: request) :
@@ -54,11 +56,23 @@ class MovieListViewModel: MovieListViewModelProtocol, ErrorPresentable {
                 }
             } receiveValue: { [weak self] page in
                 guard let self else { return }
-                self.movies.append(contentsOf: page.mediaItems)
-                self.currentPage += 1
+                if self.isReset {
+                    self.movies = page.mediaItems
+                    self.isReset = false
+                } else {
+                    self.movies.append(contentsOf: page.mediaItems)
+                }
+                
                 self.totalPages = page.totalPages
                 self.isLoading = false
             }
             .store(in: &cancellables)
+    }
+    
+    func refresh(currentGenreId: Int) {
+        print("Page refreshed: \(currentPage)")
+        isReset = true
+        currentPage = 0
+        genreIdSubject.send(currentGenreId)
     }
 }

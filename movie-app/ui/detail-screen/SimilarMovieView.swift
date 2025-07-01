@@ -32,6 +32,7 @@ struct SimilarMovieView: View {
                         .frame(width: 50, height: 50)
                 }
             }
+            .padding(.bottom, LayoutConst.normalPadding)
         }
     }
 }

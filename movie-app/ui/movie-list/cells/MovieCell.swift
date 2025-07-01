@@ -44,7 +44,7 @@ struct MovieCell: View {
                     VStack(alignment: .leading) {
                         Text(movie.title)
                             .font(Fonts.subheading)
-                            .lineLimit(2)
+                            .lineLimit(1)
                             .truncationMode(.tail)
                             .frame(maxWidth: 150, alignment: .leading)
                         

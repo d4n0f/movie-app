@@ -20,6 +20,7 @@ enum MoviesApi {
     case fetchMovieCredits(req: FetchMovieCreditsRequest)
     case fetchCastDetail(req: FetchParticipantDetailRequest)
     case fetchCompanyDetail(req: FetchParticipantDetailRequest)
+    case fetchMovieReviews(req: FetchMediaItemReviewRequest)
 }
 
 extension MoviesApi: TargetType {
@@ -56,12 +57,14 @@ extension MoviesApi: TargetType {
             return "person/\(req.personId)"
         case .fetchCompanyDetail(req: let req):
             return "company/\(req.personId)"
+        case .fetchMovieReviews(req: let req):
+            return "movie/\(req.mediaId)/reviews"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits, .fetchCastDetail, .fetchCompanyDetail:
+        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits, .fetchCastDetail, .fetchCompanyDetail, .fetchMovieReviews:
             return .get
         case .editFavouriteMovies:
             return .post
@@ -95,6 +98,8 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .fetchCompanyDetail(req: let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case .fetchMovieReviews(req: let req):
+            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         }
     }
     
@@ -127,6 +132,8 @@ extension MoviesApi: TargetType {
         case .fetchCastDetail(req: let req):
             return ["Authorization": req.accessToken]
         case .fetchCompanyDetail(req: let req):
+            return ["Authorization": req.accessToken]
+        case .fetchMovieReviews(req: let req):
             return ["Authorization": req.accessToken]
         }
     }

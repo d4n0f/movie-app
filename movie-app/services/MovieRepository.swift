@@ -21,6 +21,8 @@ protocol MovieRepository {
     func editFavoriteMovie(req: EditFavouriteRequest) -> AnyPublisher<EditFavouriteResult, MovieError>
     func fetchMovieDetail(req: FetchDetailRequest) -> AnyPublisher<MediaItemDetail, MovieError>
     func fetchMovieCredits(req: FetchMovieCreditsRequest) -> AnyPublisher<[CastMember], MovieError>
+    func fetchCastDetail(req: FetchParticipantDetailRequest) -> AnyPublisher<CastDetail, MovieError>
+    func fetchCompanyDetail(req: FetchParticipantDetailRequest) -> AnyPublisher<CastDetail, MovieError>
 }
 
 class MovieRepositoryImpl: MovieRepository {
@@ -119,6 +121,26 @@ class MovieRepositoryImpl: MovieRepository {
             decodeTo: EditFavouriteResponse.self,
             transform: { response in
                 EditFavouriteResult(dto: response)
+            }
+        )
+    }
+    
+    func fetchCastDetail(req: FetchParticipantDetailRequest) -> AnyPublisher<CastDetail, MovieError> {
+        requestAndTransform(
+            target: MultiTarget(MoviesApi.fetchCastDetail(req: req)),
+            decodeTo: CastDetailResponse.self,
+            transform: { response in
+                CastDetail(dto: response)
+            }
+        )
+    }
+    
+    func fetchCompanyDetail(req: FetchParticipantDetailRequest) -> AnyPublisher<CastDetail, MovieError> {
+        requestAndTransform(
+            target: MultiTarget(MoviesApi.fetchCompanyDetail(req: req)),
+            decodeTo: CompanyDetailResponse.self,
+            transform: { response in
+                CastDetail(dto: response)
             }
         )
     }

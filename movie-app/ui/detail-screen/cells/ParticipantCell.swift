@@ -22,6 +22,7 @@ struct ParticipantCell: View {
                 .font(Fonts.subheading)
                 .lineLimit(nil)
                 .multilineTextAlignment(.center)
+                .foregroundColor(.primary)
         }
         .frame(maxWidth: 100.0)
     }

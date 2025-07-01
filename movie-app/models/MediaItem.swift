@@ -139,4 +139,14 @@ struct MediaItem: Identifiable {
         self.rating = dto.voteAverage ?? 0.0
         self.voteCount = dto.voteCount ?? 0
     }
+    
+    init(credit: CombinedCreditCast) {
+        self.id = credit.id
+        self.title = credit.title ?? credit.name ?? ""
+        self.year = (credit.releaseDate ?? credit.firstAirDate ?? "").prefix(4).description
+        self.duration = "1h 25min"
+        self.imageUrl = credit.posterPath.flatMap { URL(string: "https://image.tmdb.org/t/p/w500\($0)") }
+        self.rating = credit.voteAverage ?? 0.0
+        self.voteCount = credit.voteCount ?? 0
+    }
 }

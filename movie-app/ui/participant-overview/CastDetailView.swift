@@ -78,6 +78,8 @@ struct CastDetailView: View {
                                         StarRatingView(rating: $viewModel.rating, starSize: 24)
                                         Spacer()
                                     }
+                                    
+                                    CombinedCreditsView(personId: cast.id)
                                 }
                                 .padding(.horizontal)
                             }

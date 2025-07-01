@@ -22,6 +22,7 @@ enum MoviesApi {
     case fetchCompanyDetail(req: FetchParticipantDetailRequest)
     case fetchMovieReviews(req: FetchMediaItemReviewRequest)
     case fetchSimilarMovies(req: FetchSimilarMovieRequest)
+    case fetchCombinedCredits(req: FetchParticipantDetailRequest)
 }
 
 extension MoviesApi: TargetType {
@@ -62,12 +63,14 @@ extension MoviesApi: TargetType {
             return "movie/\(req.mediaId)/reviews"
         case .fetchSimilarMovies(req: let req):
             return "movie/\(req.mediaId)/similar"
+        case .fetchCombinedCredits(req: let req):
+            return "person/\(req.personId)/combined_credits"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits, .fetchCastDetail, .fetchCompanyDetail, .fetchMovieReviews, .fetchSimilarMovies:
+        case .fetchGenres,.fetchTVGenres, .fetchMovies, .searchMovies, .fetchTVSeries, .fetchFavoriteMovies, .fetchDetails, .fetchMovieCredits, .fetchCastDetail, .fetchCompanyDetail, .fetchMovieReviews, .fetchSimilarMovies, .fetchCombinedCredits:
             return .get
         case .editFavouriteMovies:
             return .post
@@ -105,6 +108,8 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .fetchSimilarMovies(req: let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
+        case .fetchCombinedCredits(req: let req):
+            return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         }
     }
     
@@ -141,6 +146,8 @@ extension MoviesApi: TargetType {
         case .fetchMovieReviews(req: let req):
             return ["Authorization": req.accessToken]
         case .fetchSimilarMovies(req: let req):
+            return ["Authorization": req.accessToken]
+        case .fetchCombinedCredits(req: let req):
             return ["Authorization": req.accessToken]
         }
     }

@@ -23,6 +23,7 @@ protocol MovieRepository {
     func fetchMovieCredits(req: FetchMovieCreditsRequest) -> AnyPublisher<[CastMember], MovieError>
     func fetchCastDetail(req: FetchParticipantDetailRequest) -> AnyPublisher<CastDetail, MovieError>
     func fetchCompanyDetail(req: FetchParticipantDetailRequest) -> AnyPublisher<CastDetail, MovieError>
+    func fetchMovieReviews(req: FetchMediaItemReviewRequest) -> AnyPublisher<[MediaItemReview], MovieError>
 }
 
 class MovieRepositoryImpl: MovieRepository {
@@ -144,6 +145,29 @@ class MovieRepositoryImpl: MovieRepository {
             }
         )
     }
+    
+    func fetchMovieReviews(req: FetchMediaItemReviewRequest) -> AnyPublisher<[MediaItemReview], MovieError> {
+            return networkMonitor.isConnected
+                .flatMap { isConnected -> AnyPublisher<[MediaItemReview], MovieError> in
+                    if isConnected {
+                        return self.requestAndTransform(
+                            target: MultiTarget(MoviesApi.fetchMovieReviews(req: req)),
+                            decodeTo: MediaItemReviewPageResponse.self,
+                            transform: { dto in
+                                dto.results.map(MediaItemReview.init(dto:))
+                            }
+                        )
+                        .handleEvents(receiveOutput: { [weak self]reviews in
+                            // TODO: Save reviews to store
+                        })
+                        .eraseToAnyPublisher()
+                    } else {
+                        // TODO: Fetch reviews from store
+                        return Fail(error: MovieError.unexpectedError).eraseToAnyPublisher()
+                    }
+                }
+                .eraseToAnyPublisher()
+        }
     
     private func requestAndTransform<ResponseType: Decodable, Output>(
         target: MultiTarget,

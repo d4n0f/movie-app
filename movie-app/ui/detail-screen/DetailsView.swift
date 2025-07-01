@@ -60,12 +60,12 @@ struct DetailView: View {
                         .font(Fonts.paragraph)
                         .lineLimit(nil)
                 }
-                ParticipantScrollView(title: "detail.publishers".localized(), participants: mediaItemDetail.productionCompanies)
+                ParticipantScrollView(title: "detail.publishers".localized(), participants: mediaItemDetail.productionCompanies, navigationType: .company)
                 
-                ParticipantScrollView(title: "detail.cast".localized(), participants: credits)
+                ParticipantScrollView(title: "detail.cast".localized(), participants: credits, navigationType: .person)
             }
             .padding(.horizontal, LayoutConst.maxPadding)
-            .padding(.bottom, LayoutConst.largePadding)
+            .padding(.bottom, LayoutConst.maxPadding)
 
         }
         .toolbar {

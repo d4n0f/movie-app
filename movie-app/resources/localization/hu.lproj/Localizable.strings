@@ -27,3 +27,4 @@
 "noInternet" = "Nincs internetkapcsolat";
 "addReview.subTitle" = "Adjon őszinte véleményt";
 "addReview.buttonTitle" = "Véleményem elküldése";
+"detail.topReviews" = "Top vélemények";

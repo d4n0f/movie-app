@@ -46,6 +46,9 @@ struct MovieListView: View {
         .onAppear {
             viewModel.genreIdSubject.send(genre.id)
         }
+        .refreshable {
+            viewModel.refresh(currentGenreId: genre.id)
+        }
     }
 }
 

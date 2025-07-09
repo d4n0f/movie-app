@@ -68,7 +68,7 @@ struct MediaItem: Identifiable {
         let releaseDate: String? = dto.releaseDate
         let prefixedYear: Substring = releaseDate?.prefix(4) ?? "-"
         let year = String(prefixedYear)
-        let duration = "1h 25min" // TODO: placeholder – ha lesz ilyen adat, cserélhető
+        let duration = "-" // TODO: placeholder – ha lesz ilyen adat, cserélhető
         
         var imageUrl: URL? {
             dto.posterPath.flatMap {
@@ -90,7 +90,7 @@ struct MediaItem: Identifiable {
         let releaseDate: String? = dto.firstAirDate
         let prefixedYear: Substring = releaseDate?.prefix(4) ?? "-"
         let year = String(prefixedYear)
-        let duration = "1h 25min" // TODO: placeholder – ha lesz ilyen adat, cserélhető
+        let duration = "-" // TODO: placeholder – ha lesz ilyen adat, cserélhető
         
         var imageUrl: URL? {
             dto.posterPath.flatMap {
@@ -112,7 +112,7 @@ struct MediaItem: Identifiable {
         self.id = detail.id
         self.title = detail.title
         self.year = detail.year
-        self.duration = "1h 25min"
+        self.duration = "-"
         self.imageUrl = detail.imageUrl
         self.rating = detail.rating
         self.voteCount = detail.voteCount
@@ -123,7 +123,7 @@ struct MediaItem: Identifiable {
         let releaseDate: String? = dto.releaseDate
         let prefixedYear: Substring = releaseDate?.prefix(4) ?? "-"
         let year = String(prefixedYear)
-        let duration = "1h 25min"
+        let duration = "-"
         
         var imageUrl: URL? {
             dto.posterPath.flatMap {
@@ -144,7 +144,7 @@ struct MediaItem: Identifiable {
         self.id = credit.id
         self.title = credit.title ?? credit.name ?? ""
         self.year = (credit.releaseDate ?? credit.firstAirDate ?? "").prefix(4).description
-        self.duration = "1h 25min"
+        self.duration = "-"
         self.imageUrl = credit.posterPath.flatMap { URL(string: "https://image.tmdb.org/t/p/w500\($0)") }
         self.rating = credit.voteAverage ?? 0.0
         self.voteCount = credit.voteCount ?? 0

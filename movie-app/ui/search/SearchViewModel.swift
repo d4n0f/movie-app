@@ -22,13 +22,12 @@ class SearchViewModel: SearchViewModelProtocol, ErrorPresentable {
     
     init() {
         startSearch
-            .print("<<< startSearch")
             .debounce(for: .seconds(2.5), scheduler: RunLoop.main)
             .flatMap { [weak self]_ ->  AnyPublisher<[MediaItem], MovieError> in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = SearchMovieRequest(query: self.searchText)
+                let request = SearchMediaItemRequest(query: self.searchText)
                 return self.repository.searchMovies(req: request)
             }
             .sink { [weak self] completion in

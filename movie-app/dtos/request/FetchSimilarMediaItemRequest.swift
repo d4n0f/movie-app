@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FetchSimilarMovieRequest {
+struct FetchSimilarMediaItemRequest {
     let accessToken: String = Config.bearerToken
     let mediaId: Int
     let page: Int

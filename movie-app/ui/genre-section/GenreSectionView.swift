@@ -45,6 +45,7 @@ struct GenreSectionView: View {
                         .listRowSeparator(.hidden)
                     }
                 }
+                .padding(.bottom, LayoutConst.maxPadding)
                 .listStyle(.plain)
                 .navigationTitle(title)
                 .accessibilityLabel("testCollectionView")

@@ -26,7 +26,7 @@ struct CombinedCreditsView: View {
             LazyVGrid(columns: columns, spacing: LayoutConst.largePadding) {
                 ForEach(viewModel.combinedCredits) { credit in
                         NavigationLink(destination: DetailView(mediaItem: MediaItem(credit: credit))) {
-                            MovieCell(movie: MediaItem(credit: credit))
+                            MediaItemCell(movie: MediaItem(credit: credit))
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

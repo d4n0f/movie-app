@@ -6,7 +6,7 @@
 //
 
 
-struct FetchFavoriteMovieRequest {
+struct FetchFavoriteMediaItemRequest {
     let accessToken: String = Config.bearerToken
     let accountId: Int = Config.accountId
     

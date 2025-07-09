@@ -54,7 +54,7 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = FetchMovieCreditsRequest(mediaId: mediaItemId)
+                let request = FetchMediaItemCreditsRequest(mediaId: mediaItemId)
                 return self.repository.fetchMovieCredits(req: request)
             }
         
@@ -75,7 +75,7 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
                 }
                 self.isLoading = true
                 self.currentPage += 1
-                let request = FetchSimilarMovieRequest(mediaId: mediaItemId, page: self.currentPage)
+                let request = FetchSimilarMediaItemRequest(mediaId: mediaItemId, page: self.currentPage)
                 return self.repository.fetchSimilarMovie(req: request)
             }
         

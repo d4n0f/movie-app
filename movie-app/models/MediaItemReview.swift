@@ -14,6 +14,14 @@ struct MediaItemReview: Identifiable {
     let rating: Double?
     let avatarURL: URL?
     
+    init(id: String, author: String, content: String, rating: Double? = nil, avatarURL: URL? = nil) {
+        self.id = id
+        self.author = author
+        self.content = content
+        self.rating = rating
+        self.avatarURL = avatarURL
+    }
+    
     init(dto: MediaItemReviewResponse) {
         self.id = dto.id
         self.author = dto.author

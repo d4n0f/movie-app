@@ -69,7 +69,7 @@ class CastDetailViewModel: ObservableObject, ErrorPresentable {
             return 0
         }
         
-        let maxPopularity = 30.0
+        let maxPopularity = 20.0
         let scaledPopularity = min(popularity, maxPopularity)
         
         let rating = (scaledPopularity / maxPopularity) * 4.0

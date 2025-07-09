@@ -20,7 +20,7 @@ struct SimilarMovieView: View {
             HStack(spacing: 20) {
                 ForEach(similarMovies) { movie in
                     NavigationLink(destination: DetailView(mediaItem: movie)) {
-                        MovieCell(movie: movie)
+                        MediaItemCell(movie: movie)
                             .frame(width: 180)
                             .frame(alignment: .leading)
                             .foregroundColor(.invertedMain)

@@ -8,7 +8,7 @@
 import Shimmer
 import SwiftUI
 
-struct MovieCell: View {
+struct MediaItemCell: View {
     let movie: MediaItem
     
     var body: some View {
@@ -30,11 +30,17 @@ struct MovieCell: View {
                         .frame(maxHeight: 180)
                         .frame(maxWidth: .infinity)
                         .cornerRadius(12)
+                        .allowsHitTesting(false)
+                    }
+                    HStack(alignment: .center) {
+                        Rectangle()
+                            .opacity(0.00000001)
+                            .allowsHitTesting(true)
                     }
                     
                     HStack(spacing: 12.0) {
-                        MovieLabel(type: .rating(movie.rating))
-                        MovieLabel(type: .voteCount(movie.voteCount))
+                        MediaItemLabel(type: .rating(movie.rating))
+                        MediaItemLabel(type: .voteCount(movie.voteCount))
                     }
                     .padding(LayoutConst.smallPadding)
                     
@@ -66,7 +72,7 @@ struct MovieCell: View {
 }
 
 #Preview {
-    MovieCell(movie: MediaItem(id: 2,
+    MediaItemCell(movie: MediaItem(id: 2,
                            title: "Mock movie2",
                            year: "2024",
                            duration: "1h 34m",

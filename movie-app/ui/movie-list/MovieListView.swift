@@ -22,7 +22,7 @@ struct MovieListView: View {
                 ForEach(viewModel.movies.indices, id: \.self) { index in
                     let movie = viewModel.movies[index]
                     NavigationLink(destination: DetailView(mediaItem: movie)) {
-                        MovieCell(movie: movie)
+                        MediaItemCell(movie: movie)
                             .onAppear {
                                 if index == viewModel.movies.count - 1 {
                                     viewModel.reachedBottomSubject.send()

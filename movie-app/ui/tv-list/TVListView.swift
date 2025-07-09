@@ -20,7 +20,7 @@ struct TVListView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: LayoutConst.largePadding) {
                 ForEach(viewModel.movies) { movie in
-                    MovieCell(movie: movie)
+                    MediaItemCell(movie: movie)
                 }
             }
             .padding(.horizontal, LayoutConst.normalPadding)

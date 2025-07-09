@@ -5,7 +5,7 @@
 //  Created by Balint Fonad on 2025. 05. 10..
 //
 
-struct FetchMovieCreditsRequest {
+struct FetchMediaItemCreditsRequest {
     let accessToken: String = Config.bearerToken
     let mediaId: Int
     

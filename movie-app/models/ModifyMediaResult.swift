@@ -5,12 +5,12 @@
 //  Created by Balint Fonad on 2025. 05. 13..
 //
 
-struct EditFavouriteResult {
+struct ModifyMediaResult {
     let success: Bool
     let statusCode: Int
     let statusMessage: String
     
-    init(dto: EditFavouriteResponse) {
+    init(dto: ModifyMediaResultResponse) {
         self.success = dto.success
         self.statusCode = dto.statusCode
         self.statusMessage = dto.statusMessage

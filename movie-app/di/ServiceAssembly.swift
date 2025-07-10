@@ -54,5 +54,13 @@ class ServiceAssembly: Assembly {
         container.register(GenreSectionUseCase.self) { _ in
             return GenreSectionUseCaseImpl()
         }.inObjectScope(.container)
+        
+        container.register(ReviewStoreProtocol.self) { _ in
+            return ReviewStore()
+        }.inObjectScope(.container)
+        
+        container.register(AppVersionProviderProtocol.self) { _ in
+            return AppVersionProvider()
+        }.inObjectScope(.container)
     }
 }

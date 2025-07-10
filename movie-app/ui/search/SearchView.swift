@@ -4,7 +4,7 @@ import InjectPropertyWrapper
 struct SearchView: View {
     @StateObject private var viewModel = SearchViewModel()
     
-//    @EnvironmentObject private var langaugeManager: LanguageManager
+    @EnvironmentObject private var langaugeManager: LanguageManager
     
     var body: some View {
         NavigationView {
@@ -36,7 +36,7 @@ struct SearchView: View {
                 .cornerRadius(28)
                 .padding(.horizontal, LayoutConst.maxPadding)
                 
-                if viewModel.movies.isEmpty {
+                if viewModel.mediaItems.isEmpty {
                     VStack {
                         Spacer()
                         Text("search.empty.title".localized())
@@ -48,7 +48,7 @@ struct SearchView: View {
                 } else {
                     ScrollView {
                         LazyVStack(spacing: LayoutConst.normalPadding) {
-                            ForEach(viewModel.movies) { movie in
+                            ForEach(viewModel.mediaItems) { movie in
                                 NavigationLink(destination: DetailView(mediaItem: movie)) {
                                     MediaItemCell(movie: movie)
                                         .frame(height: 277)

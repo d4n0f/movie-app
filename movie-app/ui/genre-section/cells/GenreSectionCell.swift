@@ -12,9 +12,9 @@ struct GenreSectionCell: View {
     let movies: [MediaItem]
     var onExpand: (() -> Void)? = nil
     @State private var isExpanded = false
-
+    
     private let expandedHeight: CGFloat = 200
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
@@ -24,7 +24,7 @@ struct GenreSectionCell: View {
                 Spacer()
                 Image(.rightArrow)
                     .rotationEffect(.degrees(isExpanded ? 90 : 0))
-                    //.animation(.easeInOut, value: isExpanded)
+                //.animation(.easeInOut, value: isExpanded)
                     .onTapGesture {
                         isExpanded.toggle()
                         
@@ -33,20 +33,23 @@ struct GenreSectionCell: View {
                         }
                     }
             }
-
+            
             ZStack {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: 16) {
-                        ForEach(movies) { movie in
-                            MediaItemCell(movie: movie)
-                                .frame(width: 160)
+                        ForEach(movies) { mediaItem in
+                            NavigationLink(destination: DetailView(mediaItem: mediaItem)) {
+                                MediaItemCell(movie: mediaItem)
+                                    .frame(width: 160)
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
+                        .padding(.top, LayoutConst.normalPadding)
                     }
-                    .padding(.top, LayoutConst.normalPadding)
+                    .opacity(isExpanded ? 1 : 0)
                 }
-                .opacity(isExpanded ? 1 : 0)
+                .frame(height: isExpanded ?  expandedHeight : 0.0)
             }
-            .frame(height: isExpanded ?  expandedHeight : 0.0)
         }
     }
 }

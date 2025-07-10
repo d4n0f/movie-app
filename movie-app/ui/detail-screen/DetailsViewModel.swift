@@ -21,7 +21,7 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
     @Published var alertModel: AlertModel? = nil
     @Published var isLoading: Bool = false
     
-    let mediaItemIdSubject = PassthroughSubject<Int, Never>()
+    let mediaItemSubject = PassthroughSubject<MediaItem, Never>()
     let favoriteButtonTapped = PassthroughSubject<Void, Never>()
     let reachedBottomSubject = CurrentValueSubject<Void, Never>(())
     
@@ -38,44 +38,45 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
     
     init() {
         
-        let mediaItemIdSubject = mediaItemIdSubject.share()
+        let mediaItemSubject = mediaItemSubject.share()
         
-        let details = mediaItemIdSubject
-            .flatMap { [weak self]mediaItemId in
+        let details = mediaItemSubject
+            .flatMap { [weak self]mediaItem in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = FetchDetailRequest(mediaId: mediaItemId)
-                return self.repository.fetchMovieDetail(req: request)
+                let request = FetchDetailRequest(mediaId: mediaItem.id)
+                return Environments.name == .tv ? self.repository.fetchTVDetail(req: request) :
+                                                  self.repository.fetchMovieDetail(req: request)
             }
         
-        let credits = mediaItemIdSubject
-            .flatMap { [weak self]mediaItemId in
+        let credits = mediaItemSubject
+            .flatMap { [weak self]mediaItem in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = FetchMediaItemCreditsRequest(mediaId: mediaItemId)
-                return self.repository.fetchMovieCredits(req: request)
+                let request = FetchMediaItemCreditsRequest(mediaId: mediaItem.id)
+                return Environments.name == .tv ? self.repository.fetchTVCredits(req: request) : self.repository.fetchMovieCredits(req: request)
             }
         
-        let reviews = mediaItemIdSubject
-            .flatMap { [weak self]mediaItemId in
+        let reviews = mediaItemSubject
+            .flatMap { [weak self]mediaItem in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
-                let request = FetchMediaItemReviewRequest(mediaId: mediaItemId)
+                let request = FetchMediaItemReviewRequest(mediaId: mediaItem.id)
                 return self.repository.fetchMovieReviews(req: request)
             }
         
         //TODO: solve pagination problem
-        let similars = mediaItemIdSubject
-            .flatMap { [weak self]mediaItemId in
+        let similars = mediaItemSubject
+            .flatMap { [weak self]mediaItem in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }
                 self.isLoading = true
                 self.currentPage += 1
-                let request = FetchSimilarMediaItemRequest(mediaId: mediaItemId, page: self.currentPage)
+                let request = FetchSimilarMediaItemRequest(mediaId: mediaItem.id, page: self.currentPage)
                 return self.repository.fetchSimilarMovie(req: request)
             }
         
@@ -114,7 +115,7 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
             .store(in: &cancellables)
         
         favoriteButtonTapped
-            .flatMap { [weak self] _ -> AnyPublisher<(EditFavouriteResult, Bool), MovieError> in
+            .flatMap { [weak self] _ -> AnyPublisher<(ModifyMediaResult, Bool), MovieError> in
                 guard let self = self else {
                     preconditionFailure("There is no self")
                 }

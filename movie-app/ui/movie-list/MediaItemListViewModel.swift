@@ -2,12 +2,12 @@ import Foundation
 import InjectPropertyWrapper
 import Combine
 
-protocol MovieListViewModelProtocol: ObservableObject {
-    var movies: [MediaItem] { get }
+protocol MediaItemListViewModelProtocol: ObservableObject {
+    var mediaItems: [MediaItem] { get }
 }
 
-class MovieListViewModel: MovieListViewModelProtocol, ErrorPresentable {
-    @Published var movies: [MediaItem] = []
+class MediaItemListViewModel: MediaItemListViewModelProtocol, ErrorPresentable {
+    @Published var mediaItems: [MediaItem] = []
     @Published var alertModel: AlertModel? = nil
     @Published var isLoading: Bool = false
     @Published var isReset: Bool = false
@@ -25,7 +25,13 @@ class MovieListViewModel: MovieListViewModelProtocol, ErrorPresentable {
     
     init() {
         
-        Publishers.CombineLatest(reachedBottomSubject, genreIdSubject)
+        let genreIdNewValue = genreIdSubject.handleEvents(receiveOutput: { [weak self]_ in
+            self?.mediaItems.removeAll()
+            self?.currentPage = 1
+        })
+        .eraseToAnyPublisher()
+        
+        Publishers.CombineLatest(reachedBottomSubject, genreIdNewValue)
             .filter { [weak self]_ in
                 guard let self = self else {
                     preconditionFailure("There is no self")
@@ -57,10 +63,10 @@ class MovieListViewModel: MovieListViewModelProtocol, ErrorPresentable {
             } receiveValue: { [weak self] page in
                 guard let self else { return }
                 if self.isReset {
-                    self.movies = page.mediaItems
+                    self.mediaItems = page.mediaItems
                     self.isReset = false
                 } else {
-                    self.movies.append(contentsOf: page.mediaItems)
+                    self.mediaItems.append(contentsOf: page.mediaItems)
                 }
                 
                 self.totalPages = page.totalPages

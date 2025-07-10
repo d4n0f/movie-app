@@ -9,7 +9,7 @@ import SwiftUI
 import InjectPropertyWrapper
 
 struct TVListView: View {
-    @StateObject private var viewModel = MovieListViewModel()
+    @StateObject private var viewModel = MediaItemListViewModel()
     let genre: Genre
     
     let columns = [
@@ -19,7 +19,7 @@ struct TVListView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: LayoutConst.largePadding) {
-                ForEach(viewModel.movies) { movie in
+                ForEach(viewModel.mediaItems) { movie in
                     MediaItemCell(movie: movie)
                 }
             }
@@ -43,7 +43,7 @@ struct TVListView: View {
 }
 
 #Preview {
-    MovieListView(genre: Genre(id: 28, name: "Action") )
+    MediaItemListView(genre: Genre(id: 28, name: "Action") )
 }
 
 

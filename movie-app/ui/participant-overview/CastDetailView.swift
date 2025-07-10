@@ -38,7 +38,7 @@ struct CastDetailView: View {
                             
                             HStack(spacing: 40) {
                                 VStack(alignment: .leading) {
-                                    Text("Birth year")
+                                    Text("birthYear")
                                         .font(Fonts.caption)
                                         .foregroundColor(Color.primary)
                                     Text(cast.birthYear ?? "N/A")
@@ -47,7 +47,7 @@ struct CastDetailView: View {
                                 }
                                 
                                 VStack(alignment: .leading) {
-                                    Text("City")
+                                    Text("city")
                                         .font(Fonts.caption)
                                         .foregroundColor(Color.primary)
                                     Text(cast.originPlace ?? "N/A")
@@ -59,7 +59,7 @@ struct CastDetailView: View {
                             .padding(.horizontal)
                             
                             VStack(alignment: .leading, spacing: 8) {
-                                Text("Bio")
+                                Text("bio")
                                     .font(Fonts.caption)
                                     .foregroundColor(Color.primary)
                                 Text(cast.biography ?? "N/A")
@@ -70,7 +70,7 @@ struct CastDetailView: View {
                             
                             if viewModel.isCastMember {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Text("Popularity")
+                                    Text("popularity")
                                         .font(Fonts.caption)
                                         .foregroundColor(Color.primary)
                                     HStack {

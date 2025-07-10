@@ -23,10 +23,33 @@
 "unavailable" = "Nem elérhető";
 "detail.minutes" = "perc";
 "detail.cast" = "Szereplők";
-"detail.companies" = "Kiadók és cégek";
+"detail.publishers" = "Kiadók és cégek";
 "noInternet" = "Nincs internetkapcsolat";
 "addReview.subTitle" = "Adjon őszinte véleményt";
-"addReview.buttonTitle" = "Véleményem elküldése";
+"add.review.submit.button" = "Véleményem elküldése";
 "detail.topReviews" = "Top vélemények";
 "similar.movies.title" = "Hasonló filmek";
 "combined.credits.title" = "Összesített szereplések";
+
+"settings.title" = "Beállítások";
+"settings.chooseLanguage" = "Nyelv kiválasztása";
+"settings.chooseTheme" = "Téma kiválasztása";
+"settings.lang.english" = "Angol";
+"settings.lang.russian" = "Orosz";
+"settings.lang.hungarian" = "Magyar";
+"settings.theme.light" = "Világos mód";
+"settings.theme.dark" = "Sötét mód";
+
+"version" = "Verzió";
+"createdby" = "Készítette: Névtelen";
+"detail.topReviews" = "Értékelések [EN]";
+"birthYear" = "Születési év";
+"city" = "Város";
+"bio" = "Életrajz";
+"popularity" = "Népszerűség";
+"appReview.title" = "Értékeld az appot";
+"appReview.desc" = "Nagyra értékeljük ha az App Store-ban értékeled az alkalmazást. Köszönjük";
+"appReview.button.title" = "Rendben";
+
+"adult.only" = "18+";
+"everyone" = "Mindenkinek";

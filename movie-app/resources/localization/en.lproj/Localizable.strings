@@ -23,10 +23,33 @@
 "unavailable" = "Unavailable";
 "detail.minutes" = "min";
 "detail.cast" = "Cast";
-"detail.companies" = "Publishers and companies";
+"detail.publishers" = "Publishers and companies";
 "noInternet" = "No internet connection";
 "addReview.subTitle" = "Give it  a honest review";
-"addReview.buttonTitle" = "Send my review";
+"add.review.submit.button" = "Send my review";
 "detail.topReviews" = "Top reviews";
 "similar.movies.title" = "Similar movies";
 "combined.credits.title" = "Combined Credits";
+
+"settings.title" = "Settings";
+"settings.chooseLanguage" = "Choose Language";
+"settings.chooseTheme" = "Choose Theme";
+"settings.lang.english" = "English";
+"settings.lang.russian" = "Russian";
+"settings.lang.hungarian" = "Hungarian";
+"settings.theme.light" = "Light Mode";
+"settings.theme.dark" = "Dark Mode";
+
+"version" = "Version";
+"createdby" = "Created by: Anonymous";
+"detail.topReviews" = "Top Reviews";
+"birthYear" = "Year of Birth";
+"city" = "City";
+"bio" = "Biography";
+"popularity" = "Popularity";
+"appReview.title" = "Rate the app";
+"appReview.desc" = "We appreciate it if you rate the app on the App Store. Thank you!";
+"appReview.button.title" = "OK";
+
+"adult.only" = "18+";
+"everyone" = "For everyone";

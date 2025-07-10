@@ -15,12 +15,11 @@ struct RootView: View {
     var body: some View {
         ZStack(alignment: .top) {
             MainTabView(selectedTab: $selectedTab)
-
             
             OfflineBannerView()
-                .padding(.top, viewModel.isBannerAppear ? 0.0 : -200)
-//                .opacity(viewModel.isBannerAppear ? 1.0 : 0.0)
+                .padding(.top, viewModel.isBannerAppear ? 0.0 : -200.0)
                 .animation(.easeInOut(duration: 1), value: viewModel.isBannerAppear)
+
         }
     }
 }

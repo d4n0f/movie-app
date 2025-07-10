@@ -68,7 +68,7 @@ class DetailViewModel: DetailViewModelProtocol, ErrorPresentable {
                 return self.repository.fetchMovieReviews(req: request)
             }
         
-        //TODO: solve pagination problem
+        //TODO: Pagination
         let similars = mediaItemSubject
             .flatMap { [weak self]mediaItem in
                 guard let self = self else {

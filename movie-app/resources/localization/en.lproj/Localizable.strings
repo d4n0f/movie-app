@@ -53,3 +53,5 @@
 
 "adult.only" = "18+";
 "everyone" = "For everyone";
+
+"mediaItem.default.duration" = "-";

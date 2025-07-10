@@ -6,30 +6,30 @@
   
 */
 
-"genreSection.title" = "Movie app";
-"search.empty.title" = "Start typing\nto search";
-"search.textfield.placeholder" = "Movies, Director, Actor, Actress, etc.";
-"unexpected.error.message" = "Something went wrong. Please try again later.";
-"unexpected.error.title" = "Unexpected Error";
-"button.close.text" = "Close";
-"favoriteMovies.title" = "Favorites";
-"detail.rate.button" = "Rate this movie";
-"detail.imdb.button" = "Visit at IMDB";
-"detail.releaseDate" = "Release Date";
-"detail.runtime" = "Runtime";
-"detail.language" = "Language";
-"detail.overview" = "Synopsis";
-"available" = "Available";
-"unavailable" = "Unavailable";
-"detail.minutes" = "min";
-"detail.cast" = "Cast";
-"detail.publishers" = "Publishers and companies";
-"noInternet" = "No internet connection";
-"addReview.subTitle" = "Give it  a honest review";
-"add.review.submit.button" = "Send my review";
-"detail.topReviews" = "Top reviews";
-"similar.movies.title" = "Similar movies";
-"combined.credits.title" = "Combined Credits";
+"genreSection.title" = "Кино-приложение";
+"search.empty.title" = "Начните печатать,\nчтобы искать";
+"search.textfield.placeholder" = "Фильмы, Режиссер, Актер, Актриса и т.д.";
+"unexpected.error.message" = "Что-то пошло не так. Пожалуйста, попробуйте позже.";
+"unexpected.error.title" = "Неожиданная ошибка";
+"button.close.text" = "Закрыть";
+"favoriteMovies.title" = "Избранное";
+"detail.rate.button" = "Оценить фильм";
+"detail.imdb.button" = "Смотреть на IMDB";
+"detail.releaseDate" = "Дата выхода";
+"detail.runtime" = "Продолжительность";
+"detail.language" = "Язык";
+"detail.overview" = "Синопсис [English]";
+"available" = "Доступно";
+"unavailable" = "Недоступно";
+"detail.minutes" = "мин";
+"detail.cast" = "Актерский состав";
+"detail.publishers" = "Издатели и компании";
+"noInternet" = "Нет подключения к интернету";
+"addReview.subTitle" = "Оставьте честный отзыв";
+"add.review.submit.button" = "Отправить отзыв";
+"detail.topReviews" = "Лучшие отзывы";
+"similar.movies.title" = "Похожие фильмы";
+"combined.credits.title" = "Общие кредиты";
 
 "settings.title" = "Настройки";
 "settings.chooseLanguage" = "Выбор языка";
@@ -53,3 +53,5 @@
 
 "adult.only" = "18+";
 "everyone" = "For everyone";
+
+"mediaItem.default.duration" = "-";

@@ -31,7 +31,6 @@ enum MoviesApi {
 
 extension MoviesApi: TargetType {
     var baseURL: URL {
-        // TODO: Másik baseurl
         let baseUrl = "https://api.themoviedb.org/3/"
         guard let baseUrl = URL(string: baseUrl) else {
             preconditionFailure("Base url not valid url")
@@ -89,7 +88,6 @@ extension MoviesApi: TargetType {
         }
     }
     
-    // TODO: Másik encoding
     var task: Task {
         switch self {
         case .fetchGenres(let req):
@@ -108,7 +106,6 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .editFavouriteMovies(req: let req):
             let request = EditFavouriteBodyRequest(movieId: req.movieId, isFavorite: req.isFavorite)
-//            print("<<<<\(request)")
             return .requestJSONEncodable(request)
         case .fetchDetails(req: let req):
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
@@ -130,7 +127,6 @@ extension MoviesApi: TargetType {
             return .requestParameters(parameters: req.asRequestParams(), encoding: URLEncoding.queryString)
         case .addRating(req: let req):
             let request = AddReviewBodyRequest(movieId: req.mediaId, rating: req.rating)
-//            print("<<<<\(request)")
             return .requestJSONEncodable(request)
         }
     }

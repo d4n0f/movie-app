@@ -18,7 +18,7 @@
 "detail.releaseDate" = "Bemutató ideje";
 "detail.runtime" = "Időtartam";
 "detail.language" = "Nyelv";
-"detail.overview" = "Áttekintés";
+"detail.overview" = "Áttekintés [English]";
 "available" = "Elérhető";
 "unavailable" = "Nem elérhető";
 "detail.minutes" = "perc";
@@ -42,7 +42,7 @@
 
 "version" = "Verzió";
 "createdby" = "Készítette: Névtelen";
-"detail.topReviews" = "Értékelések [EN]";
+"detail.topReviews" = "Értékelések";
 "birthYear" = "Születési év";
 "city" = "Város";
 "bio" = "Életrajz";
@@ -53,3 +53,5 @@
 
 "adult.only" = "18+";
 "everyone" = "Mindenkinek";
+
+"mediaItem.default.duration" = "-";

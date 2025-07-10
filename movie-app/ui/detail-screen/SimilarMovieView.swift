@@ -14,7 +14,7 @@ struct SimilarMovieView: View {
     let similarMovies: [MediaItem]
     
     var body: some View {
-        Text("similar.movies.title")
+        Text("similar.movies.title".localized())
             .font(Fonts.title)
         ScrollView(.horizontal) {
             HStack(spacing: 20) {

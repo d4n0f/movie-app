@@ -17,7 +17,7 @@ struct CombinedCreditsView: View {
     ]
 
     var body: some View {
-        Text("combined.credits.title")
+        Text("combined.credits.title".localized())
             .font(Fonts.title)
             .padding(.top, LayoutConst.normalPadding)
             .frame(alignment: .leading)

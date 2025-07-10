@@ -4,7 +4,7 @@ import InjectPropertyWrapper
 struct FavoritesView: View {
     @StateObject private var viewModel = FavoritesViewModel()
     
-//    @EnvironmentObject private var langaugeManager: LanguageManager
+    @EnvironmentObject private var langaugeManager: LanguageManager
     
     var body: some View {
         let items = viewModel.mediaItems

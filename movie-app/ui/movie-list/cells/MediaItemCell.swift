@@ -18,9 +18,9 @@ struct MediaItemCell: View {
             }
             .frame(height: 100)
             .frame(maxHeight: 180)
-            .frame(maxWidth: .infinity)
             .cornerRadius(12)
             .shimmering()
+            .allowsHitTesting(false)
         } else {
             VStack(alignment: .leading, spacing: LayoutConst.smallPadding) {
                 ZStack(alignment: .topLeading) {
@@ -28,14 +28,7 @@ struct MediaItemCell: View {
                         LoadImageView(url: movie.imageUrl)
                         .frame(height: 100)
                         .frame(maxHeight: 180)
-                        .frame(maxWidth: .infinity)
                         .cornerRadius(12)
-                        .allowsHitTesting(false)
-                    }
-                    HStack(alignment: .center) {
-                        Rectangle()
-                            .opacity(0.00000001)
-                            .allowsHitTesting(true)
                     }
                     
                     HStack(spacing: 12.0) {
@@ -66,6 +59,7 @@ struct MediaItemCell: View {
                     Image(.playButton)
                 }
             }
+            .contentShape(Rectangle())
         }
         
     }

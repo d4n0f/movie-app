@@ -7,8 +7,18 @@
 
 import Foundation
 
-struct FetchParticipantDetailRequest {
-    let accessToken: String = Config.bearerToken
+protocol AccessTokenProtocol {
+    var accessToken: String { get }
+}
+
+extension AccessTokenProtocol {
+    var bearerToken: String {
+        return "Bearer \(accessToken)"
+    }
+}
+
+struct FetchParticipantDetailRequest: AccessTokenProtocol {
+    var accessToken: String
     let personId: Int
     
     func asRequestParams() -> [String: Any] {

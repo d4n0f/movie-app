@@ -1,0 +1,84 @@
+import Foundation
+import InjectPropertyWrapper
+import Combine
+
+protocol MediaItemListViewModelProtocol: ObservableObject {
+    var mediaItems: [MediaItem] { get }
+}
+
+class MediaItemListViewModel: MediaItemListViewModelProtocol, ErrorPresentable {
+    @Published var mediaItems: [MediaItem] = []
+    @Published var alertModel: AlertModel? = nil
+    @Published var isLoading: Bool = false
+    @Published var isReset: Bool = false
+    
+    let genreIdSubject = PassthroughSubject<Int, Never>()
+    let reachedBottomSubject = CurrentValueSubject<Void, Never>(())
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private var currentPage: Int = 0
+    private var totalPages: Int = Int.max
+    
+    @Inject
+    private var repository: MovieRepository
+    
+    init() {
+        
+        let genreIdNewValue = genreIdSubject.handleEvents(receiveOutput: { [weak self]_ in
+            self?.mediaItems.removeAll()
+            self?.currentPage = 1
+        })
+        .eraseToAnyPublisher()
+        
+        Publishers.CombineLatest(reachedBottomSubject, genreIdNewValue)
+            .filter { [weak self]_ in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                return self.currentPage < self.totalPages
+            }
+            .handleEvents(receiveOutput: { [weak self]_ in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                self.isLoading = true
+            })
+            .flatMap { [weak self] _, genreId -> AnyPublisher<MediaItemPage, MovieError> in
+                guard let self = self else {
+                    preconditionFailure("There is no self")
+                }
+                self.currentPage += 1
+                let request = FetchMediaListRequest(genreId: genreId, includeAdult: true, page: self.currentPage)
+                return Environments.name == .tv ?
+                        self.repository.fetchTV(req: request) :
+                        self.repository.fetchMovies(req: request)
+                
+            }
+            .sink { [weak self] completion in
+                if case let .failure(error) = completion {
+                    self?.alertModel = self?.toAlertModel(error)
+                    self?.isLoading = false
+                }
+            } receiveValue: { [weak self] page in
+                guard let self else { return }
+                if self.isReset {
+                    self.mediaItems = page.mediaItems
+                    self.isReset = false
+                } else {
+                    self.mediaItems.append(contentsOf: page.mediaItems)
+                }
+                
+                self.totalPages = page.totalPages
+                self.isLoading = false
+            }
+            .store(in: &cancellables)
+    }
+    
+    func refresh(currentGenreId: Int) {
+        print("Page refreshed: \(currentPage)")
+        isReset = true
+        currentPage = 0
+        genreIdSubject.send(currentGenreId)
+    }
+}

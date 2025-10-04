@@ -1,0 +1,37 @@
+//
+//  Config.swift
+//  movie-app
+//
+//  Created by Balint Fonad on 2025. 04. 12..
+//
+
+import Foundation
+
+enum Config {
+    private static let apiToken: String = {
+        guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+              let dict = NSDictionary(contentsOfFile: path),
+              let token = dict["API_TOKEN"] as? String else {
+            preconditionFailure("Config.plist file or API_TOKEN not found")
+        }
+        return token
+    }()
+    
+    private static let accountID: Int = {
+            guard let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+                  let dict = NSDictionary(contentsOfFile: path),
+                  let accountId = dict["ACCOUNT_ID"] as? Int else {
+                preconditionFailure("Config.plist file or ACCOUNT_ID not found")
+            }
+        return accountId
+        }()
+    
+    static var bearerToken: String {
+        "Bearer \(apiToken)"
+        //""
+    }
+    
+    static var accountId: Int {
+        accountID
+    }
+}

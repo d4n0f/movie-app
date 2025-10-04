@@ -1,0 +1,57 @@
+/* 
+  Localizable.strings
+  movie-app
+
+  Created by Balint Fonad on 2025. 04. 12..
+  
+*/
+
+"genreSection.title" = "Кино-приложение";
+"search.empty.title" = "Начните печатать,\nчтобы искать";
+"search.textfield.placeholder" = "Фильмы, Режиссер, Актер, Актриса и т.д.";
+"unexpected.error.message" = "Что-то пошло не так. Пожалуйста, попробуйте позже.";
+"unexpected.error.title" = "Неожиданная ошибка";
+"button.close.text" = "Закрыть";
+"favoriteMovies.title" = "Избранное";
+"detail.rate.button" = "Оценить фильм";
+"detail.imdb.button" = "Смотреть на IMDB";
+"detail.releaseDate" = "Дата выхода";
+"detail.runtime" = "Продолжительность";
+"detail.language" = "Язык";
+"detail.overview" = "Синопсис [English]";
+"available" = "Доступно";
+"unavailable" = "Недоступно";
+"detail.minutes" = "мин";
+"detail.cast" = "Актерский состав";
+"detail.publishers" = "Издатели и компании";
+"noInternet" = "Нет подключения к интернету";
+"addReview.subTitle" = "Оставьте честный отзыв";
+"add.review.submit.button" = "Отправить отзыв";
+"detail.topReviews" = "Лучшие отзывы";
+"similar.movies.title" = "Похожие фильмы";
+"combined.credits.title" = "Общие кредиты";
+
+"settings.title" = "Настройки";
+"settings.chooseLanguage" = "Выбор языка";
+"settings.chooseTheme" = "Выбор темы";
+"settings.lang.english" = "Английский";
+"settings.lang.russian" = "Русский";
+"settings.lang.hungarian" = "Венгерский";
+"settings.theme.light" = "Светлая тема";
+"settings.theme.dark" = "Тёмная тема";
+
+"version" = "Версия";
+"createdby" = "Создано: Аноним";
+"detail.topReviews" = "Лучшие отзывы";
+"birthYear" = "Год рождения";
+"city" = "Город";
+"bio" = "Биография";
+"popularity" = "Популярность";
+"appReview.title" = "Оцените приложение";
+"appReview.desc" = "Мы будем признательны, если вы оцените приложение в App Store. Спасибо!";
+"appReview.button.title" = "ОК";
+
+"adult.only" = "18+";
+"everyone" = "For everyone";
+
+"mediaItem.default.duration" = "-";

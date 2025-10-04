@@ -1,0 +1,66 @@
+import SwiftUI
+import InjectPropertyWrapper
+
+struct SearchView: View {
+    @StateObject private var viewModel = SearchViewModel()
+    
+    @EnvironmentObject private var langaugeManager: LanguageManager
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                HStack(spacing: 12) {
+                    Image(.icSearch)
+                        .frame(width: 24, height: 24)
+                    
+                    TextField("",
+                              text: $viewModel.searchText,
+                              prompt: Text("search.textfield.placeholder".localized())
+                                            .foregroundStyle(.invertedMain)
+                    )
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .font(Fonts.caption)
+                        .foregroundColor(.invertedMain)
+                        .onChange(of: viewModel.searchText) {
+                            viewModel.startSearch.send(())
+                        }
+                        .accessibilityLabel("searchTextField")
+                }
+                .frame(height: 56)
+                .padding(.horizontal, LayoutConst.normalPadding)
+                .background(Color.searchBarForeground)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 28)
+                        .stroke(Color.invertedMain, lineWidth: 1)
+                )
+                .cornerRadius(28)
+                .padding(.horizontal, LayoutConst.maxPadding)
+                
+                if viewModel.mediaItems.isEmpty {
+                    VStack {
+                        Spacer()
+                        Text("search.empty.title".localized())
+                            .multilineTextAlignment(.center)
+                            .font(Fonts.emptyStateText)
+                            .foregroundColor(.invertedMain)
+                        Spacer()
+                    }
+                } else {
+                    ScrollView {
+                        LazyVStack(spacing: LayoutConst.normalPadding) {
+                            ForEach(viewModel.mediaItems) { movie in
+                                NavigationLink(destination: DetailView(mediaItem: movie)) {
+                                    MediaItemCell(movie: movie)
+                                        .frame(height: 277)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.horizontal, LayoutConst.normalPadding)
+                        .padding(.top, LayoutConst.normalPadding)
+                    }
+                }
+            }
+        }
+    }
+}

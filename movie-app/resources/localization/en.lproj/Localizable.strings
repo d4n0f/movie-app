@@ -1,0 +1,57 @@
+/* 
+  Localizable.strings
+  movie-app
+
+  Created by Balint Fonad on 2025. 04. 12..
+  
+*/
+
+"genreSection.title" = "Movie app";
+"search.empty.title" = "Start typing\nto search";
+"search.textfield.placeholder" = "Movies, Director, Actor, Actress, etc.";
+"unexpected.error.message" = "Something went wrong. Please try again later.";
+"unexpected.error.title" = "Unexpected Error";
+"button.close.text" = "Close";
+"favoriteMovies.title" = "Favorites";
+"detail.rate.button" = "Rate this movie";
+"detail.imdb.button" = "Visit at IMDB";
+"detail.releaseDate" = "Release Date";
+"detail.runtime" = "Runtime";
+"detail.language" = "Language";
+"detail.overview" = "Synopsis";
+"available" = "Available";
+"unavailable" = "Unavailable";
+"detail.minutes" = "min";
+"detail.cast" = "Cast";
+"detail.publishers" = "Publishers and companies";
+"noInternet" = "No internet connection";
+"addReview.subTitle" = "Give it  a honest review";
+"add.review.submit.button" = "Send my review";
+"detail.topReviews" = "Top reviews";
+"similar.movies.title" = "Similar movies";
+"combined.credits.title" = "Combined Credits";
+
+"settings.title" = "Settings";
+"settings.chooseLanguage" = "Choose Language";
+"settings.chooseTheme" = "Choose Theme";
+"settings.lang.english" = "English";
+"settings.lang.russian" = "Russian";
+"settings.lang.hungarian" = "Hungarian";
+"settings.theme.light" = "Light Mode";
+"settings.theme.dark" = "Dark Mode";
+
+"version" = "Version";
+"createdby" = "Created by: Anonymous";
+"detail.topReviews" = "Top Reviews";
+"birthYear" = "Year of Birth";
+"city" = "City";
+"bio" = "Biography";
+"popularity" = "Popularity";
+"appReview.title" = "Rate the app";
+"appReview.desc" = "We appreciate it if you rate the app on the App Store. Thank you!";
+"appReview.button.title" = "OK";
+
+"adult.only" = "18+";
+"everyone" = "For everyone";
+
+"mediaItem.default.duration" = "-";

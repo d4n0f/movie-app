@@ -1,0 +1,57 @@
+/* 
+  Localizable.strings
+  movie-app
+
+  Created by Balint Fonad on 2025. 04. 12..
+  
+*/
+
+"genreSection.title" = "Filmek app";
+"search.empty.title" = "Kezdj el gépelni\na kereséshez";
+"search.textfield.placeholder" = "Film, Rendező, Színész, Színésznő, stb.";
+"unexpected.error.message" = "Valami félrecsúszott. Kérlek próbáld meg később.";
+"unexpected.error.title" = "Váratlan hiba";
+"button.close.text" = "Bezárás";
+"favoriteMovies.title" = "Kedvencek";
+"detail.rate.button" = "Értékelje a filmet";
+"detail.imdb.button" = "Látogassa meg az IMDB-t";
+"detail.releaseDate" = "Bemutató ideje";
+"detail.runtime" = "Időtartam";
+"detail.language" = "Nyelv";
+"detail.overview" = "Áttekintés [English]";
+"available" = "Elérhető";
+"unavailable" = "Nem elérhető";
+"detail.minutes" = "perc";
+"detail.cast" = "Szereplők";
+"detail.publishers" = "Kiadók és cégek";
+"noInternet" = "Nincs internetkapcsolat";
+"addReview.subTitle" = "Adjon őszinte véleményt";
+"add.review.submit.button" = "Véleményem elküldése";
+"detail.topReviews" = "Top vélemények";
+"similar.movies.title" = "Hasonló filmek";
+"combined.credits.title" = "Összesített szereplések";
+
+"settings.title" = "Beállítások";
+"settings.chooseLanguage" = "Nyelv kiválasztása";
+"settings.chooseTheme" = "Téma kiválasztása";
+"settings.lang.english" = "Angol";
+"settings.lang.russian" = "Orosz";
+"settings.lang.hungarian" = "Magyar";
+"settings.theme.light" = "Világos mód";
+"settings.theme.dark" = "Sötét mód";
+
+"version" = "Verzió";
+"createdby" = "Készítette: Névtelen";
+"detail.topReviews" = "Értékelések";
+"birthYear" = "Születési év";
+"city" = "Város";
+"bio" = "Életrajz";
+"popularity" = "Népszerűség";
+"appReview.title" = "Értékeld az appot";
+"appReview.desc" = "Nagyra értékeljük ha az App Store-ban értékeled az alkalmazást. Köszönjük";
+"appReview.button.title" = "Rendben";
+
+"adult.only" = "18+";
+"everyone" = "Mindenkinek";
+
+"mediaItem.default.duration" = "-";
